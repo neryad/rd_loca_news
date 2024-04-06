@@ -31,14 +31,7 @@ class HomePage extends StatelessWidget {
           ]),
         ),
         body: const TabBarView(children: <Widget>[
-          Column(
-            children: [
-              NewsCard(),
-              NewsCard(),
-              NewsCard(),
-              NewsCard(),
-            ],
-          ),
+          NewsCard(),
           Text('data2'),
           Text('data3'),
           Text('data4'),

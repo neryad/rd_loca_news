@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rd_loca_news/homePage/models/news_model.dart';
 import 'package:rd_loca_news/homePage/services/news_services.dart';
 
 class NewsCard extends StatelessWidget {
@@ -6,14 +7,36 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getNews();
+    return FutureBuilder(
+      future: getNews(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        final List<News> news = snapshot.data;
+
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.builder(
+              itemCount: news.length,
+              itemBuilder: (context, index) {
+                return newstile(news[index]);
+              }),
+        );
+      },
+    );
+  }
+
+  ListTile newstile(News news) {
     return ListTile(
       leading: CircleAvatar(
-        child: Image.network(
-          'https://raw.githubusercontent.com/neryad/api-scrapping-news/master/assets/news.png',
+        radius: 30.0,
+        backgroundImage: NetworkImage(
+          news.img,
         ),
       ),
-      title: const Text('sígueme en el canal'),
+      title: Text(news.title),
       trailing: TextButton(onPressed: () {}, child: const Text('leer mas')),
     );
   }

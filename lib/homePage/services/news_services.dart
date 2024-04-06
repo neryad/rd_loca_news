@@ -7,7 +7,7 @@ Future<List<News>> getNews() async {
   final dio = Dio();
 
   //TODO: Poner dinamuico la url
-  const url = 'https://api-scrapping-news.onrender.com/api/diariolibre';
+  const url = 'https://api-scrapping-news.onrender.com/api/remolacha';
 
   final response = await dio.get(url);
 
