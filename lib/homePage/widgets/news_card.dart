@@ -3,12 +3,13 @@ import 'package:rd_loca_news/homePage/models/news_model.dart';
 import 'package:rd_loca_news/homePage/services/news_services.dart';
 
 class NewsCard extends StatelessWidget {
-  const NewsCard({super.key});
+  final String newsPaper;
+  const NewsCard({super.key, required this.newsPaper});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getNews(),
+      future: getNews(newsPaper),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
