@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
             ),
           ]),
         ),
-        body: const TabBarView(children: <Widget>[
+        body: TabBarView(children: <Widget>[
           NewsCard(
             newsPaper: 'diariolibre',
           ),

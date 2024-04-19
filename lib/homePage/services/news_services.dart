@@ -6,7 +6,6 @@ Future<List<News>> getNews(String newsPaper) async {
 
   final dio = Dio();
 
-  //TODO: Poner dinamuico la url
   var url = 'https://api-scrapping-news.onrender.com/api/$newsPaper';
 
   final response = await dio.get(url);
