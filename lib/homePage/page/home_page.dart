@@ -30,12 +30,22 @@ class HomePage extends StatelessWidget {
             ),
           ]),
         ),
-        body: const TabBarView(children: <Widget>[
-          NewsCard(),
-          Text('data2'),
-          Text('data3'),
-          Text('data4'),
-          Text('data5')
+        body: TabBarView(children: <Widget>[
+          NewsCard(
+            newsPaper: 'diariolibre',
+          ),
+          NewsCard(
+            newsPaper: 'nacional',
+          ),
+          NewsCard(
+            newsPaper: 'listin',
+          ),
+          NewsCard(
+            newsPaper: 'remolacha',
+          ),
+          NewsCard(
+            newsPaper: 'nuevoDiario',
+          ),
         ]),
       ),
     );
