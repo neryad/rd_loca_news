@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       initialIndex: 1,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('local news'),
+          title: const Text('Nery News'),
           bottom: const TabBar(isScrollable: true, tabs: <Widget>[
             Tab(
               text: 'Diario Libre',
@@ -47,6 +47,24 @@ class HomePage extends StatelessWidget {
             newsPaper: 'nuevoDiario',
           ),
         ]),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.newspaper,
+              ),
+              label: 'Noticas',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bookmark),
+              label: 'Guardados',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Ajustes',
+            )
+          ],
+        ),
       ),
     );
   }
