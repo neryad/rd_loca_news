@@ -33,11 +33,17 @@ class NewsCard extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
-                      child: Image.network(
-                        news[index].img,
+                      child: FadeInImage(
                         width: 150,
                         height: 120,
                         fit: BoxFit.cover,
+                        placeholder: AssetImage('./assets/epic-loading.gif'),
+                        image: NetworkImage(
+                          news[index].img,
+                          // width: 150,
+                          // height: 120,
+                          // fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Padding(
