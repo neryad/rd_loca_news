@@ -1,70 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:rd_loca_news/homePage/widgets/news_card.dart';
+import 'package:rd_loca_news/favorites/pages/favorite_page.dart';
+import 'package:rd_loca_news/homePage/page/tab_news_page.dart';
+import 'package:rd_loca_news/settings/pages/setting_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final List<Widget> _pages = [
+    const TabNewsPage(),
+    const FavoritePage(),
+    const SettingPages()
+  ];
+
+  int _currentIndex = 0;
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
-      initialIndex: 1,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Nery News'),
-          bottom: const TabBar(isScrollable: true, tabs: <Widget>[
-            Tab(
-              text: 'Diario Libre',
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: onTabTapped,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.newspaper,
             ),
-            Tab(
-              text: 'El Nacional',
-            ),
-            Tab(
-              text: 'Listin Diario',
-            ),
-            Tab(
-              text: 'Remolacha',
-            ),
-            Tab(
-              text: 'Nuevo diario',
-            ),
-          ]),
-        ),
-        body: TabBarView(children: <Widget>[
-          NewsCard(
-            newsPaper: 'diariolibre',
+            label: 'Noticas',
           ),
-          NewsCard(
-            newsPaper: 'nacional',
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bookmark),
+            label: 'Guardados',
           ),
-          NewsCard(
-            newsPaper: 'listin',
-          ),
-          NewsCard(
-            newsPaper: 'remolacha',
-          ),
-          NewsCard(
-            newsPaper: 'nuevoDiario',
-          ),
-        ]),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.newspaper,
-              ),
-              label: 'Noticas',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark),
-              label: 'Guardados',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Ajustes',
-            )
-          ],
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Ajustes',
+          )
+        ],
       ),
     );
   }

@@ -6,7 +6,7 @@ Future<List<News>> getNews(String newsPaper) async {
 
   final dio = Dio();
 
-  var url = 'https://api-scrapping-news.onrender.com/api/$newsPaper';
+  var url = 'https://api-scrapping-news-rd.onrender.com/api/$newsPaper';
 
   final response = await dio.get(url);
 
