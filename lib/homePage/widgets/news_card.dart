@@ -3,18 +3,29 @@ import 'package:flutter/widgets.dart';
 import 'package:rd_loca_news/homePage/models/news_model.dart';
 import 'package:rd_loca_news/homePage/page/web_view_page.dart';
 import 'package:rd_loca_news/homePage/services/news_services.dart';
+import 'package:rd_loca_news/shared/shared_preference.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class NewsCard extends StatelessWidget {
+class NewsCard extends StatefulWidget {
   final String newsPaper;
-  final webviewController = WebViewController();
+
   NewsCard({super.key, required this.newsPaper});
+
+  @override
+  State<NewsCard> createState() => _NewsCardState();
+}
+
+class _NewsCardState extends State<NewsCard> {
+  final webviewController = WebViewController();
+
+  SharedPreference _sharedPreference = SharedPreference();
+  Map<String, bool> favorites = {};
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getNews(newsPaper),
+      future: getNews(widget.newsPaper),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
@@ -27,6 +38,7 @@ class NewsCard extends StatelessWidget {
           child: ListView.builder(
               itemCount: news.length,
               itemBuilder: (context, index) {
+                bool isFavorite = favorites[news[index].url] ?? false;
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,8 +87,22 @@ class NewsCard extends StatelessWidget {
                                     },
                                     child: const Text('Leer mas')),
                                 IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.bookmark)),
+                                    onPressed: () async {
+                                      await _sharedPreference
+                                          .saveFavorite(news[index]);
+
+                                      setState(() {
+                                        favorites[news[index].url] =
+                                            !isFavorite;
+                                      });
+                                    },
+                                    icon: Icon(
+                                        isFavorite
+                                            ? Icons.bookmark
+                                            : Icons.bookmark_border,
+                                        color: isFavorite
+                                            ? Theme.of(context).primaryColor
+                                            : Colors.grey)),
                                 IconButton(
                                     onPressed: () {
                                       final messageToShare =
