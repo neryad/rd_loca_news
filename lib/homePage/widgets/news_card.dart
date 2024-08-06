@@ -9,7 +9,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class NewsCard extends StatefulWidget {
   final String newsPaper;
-
+  // final webviewController = WebViewController();
   NewsCard({super.key, required this.newsPaper});
 
   @override
@@ -17,8 +17,6 @@ class NewsCard extends StatefulWidget {
 }
 
 class _NewsCardState extends State<NewsCard> {
-  final webviewController = WebViewController();
-
   SharedPreference _sharedPreference = SharedPreference();
   Map<String, bool> favorites = {};
 
