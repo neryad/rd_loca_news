@@ -1,5 +1,8 @@
 <div align="center">
-  <img src="https://github.com/neryad/rd_loca_news/blob/main/assets/logoNeryNews.jpeg?raw=true" alt="Logo Nery News" >
+  <img src="https://github.com/neryad/rd_loca_news/blob/main/assets/logoNeryNews.jpeg?raw=true" 
+       alt="Logo Nery News" 
+       width="300" 
+       height="auto">
 </div>
 
 
