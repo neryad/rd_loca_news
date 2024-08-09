@@ -135,4 +135,4 @@ Por favor, tómate un momento para revisar nuestros [Términos y Condiciones](./
 
 If you prefer to read this document in Spanish, please visit the following link:
 
-- [README en Español](./README_EN.md)
+- [README English](./README_EN.md)
