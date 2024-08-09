@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
  <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="rd_loca_news"
+        android:label="Nery News"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
