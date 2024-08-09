@@ -66,6 +66,12 @@ La aplicación Nery News utiliza una API backend desarrollada en Node.js para pr
 
 Para más detalles sobre cómo funciona la API o para contribuir al desarrollo del backend, visita el repositorio en el enlace proporcionado.
 
+## Historial de Cambios
+
+Para ver el historial completo de cambios, mejoras y actualizaciones de la aplicación Nery News, revisa el archivo [CHANGELOG.md](./CHANGELOG.md).
+
+Este archivo contiene detalles de cada versión, incluyendo nuevas funcionalidades, correcciones de errores y otros cambios importantes.
+
 
 
 ## Dependencies
