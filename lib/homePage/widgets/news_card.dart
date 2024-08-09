@@ -4,6 +4,8 @@ import 'package:rd_loca_news/homePage/page/web_view_page.dart';
 import 'package:rd_loca_news/homePage/services/news_services.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class NewsCard extends StatefulWidget {
   final String newsPaper;
@@ -29,102 +31,209 @@ class _NewsCardState extends State<NewsCard> {
 
         final List<News> news = snapshot.data;
 
-        return Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: ListView.builder(
-              itemCount: news.length,
-              itemBuilder: (context, index) {
-                bool isFavorite = favorites[news[index].url] ?? false;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: FadeInImage(
-                              width: 150,
-                              height: 120,
-                              fit: BoxFit.cover,
-                              placeholder:
-                                  const AssetImage('./assets/epic-loading.gif'),
-                              image: NetworkImage(
-                                news[index].img,
+        return LayoutBuilder(builder: (context, constraints) {
+          bool isWideScreen = constraints.maxWidth > 800;
+
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: isWideScreen
+                ? GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            childAspectRatio: 3 / 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                    itemCount: news.length,
+                    itemBuilder: (context, index) {
+                      bool isFavorite = favorites[news[index].url] ?? false;
+                      return Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: FadeInImage(
+                                width: double.infinity,
+                                height: 225,
+                                fit: BoxFit.cover,
+                                placeholder: const AssetImage(
+                                    './assets/epic-loading.gif'),
+                                image: NetworkImage(
+                                  news[index].img,
+                                ),
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                news[index].title,
+                                style: const TextStyle(
+                                    overflow: TextOverflow.clip,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Row(
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      if (kIsWeb) {
+                                        _launchUrl(news[index].url);
+                                        return;
+                                      }
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => WebViewPage(
+                                            newsUrl: news[index].url,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('Leer más'),
+                                  ),
+                                  IconButton(
+                                    onPressed: () async {
+                                      await _sharedPreference
+                                          .saveFavorite(news[index]);
+                                      setState(() {
+                                        favorites[news[index].url] =
+                                            !isFavorite;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      isFavorite
+                                          ? Icons.bookmark
+                                          : Icons.bookmark_border,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      final messageToShare =
+                                          '¡Últimas noticias: ${news[index].title}! 📰\n 📰 ¡Mantente al día con nuestra nueva app de noticias! 📱\n👉 ${news[index].url}\n\n¡Descarga NeryNews ya y no te pierdas ninguna noticia! 🚀📲';
+                                      Share.share(messageToShare);
+                                    },
+                                    icon: const Icon(Icons.share),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  )
+                : ListView.builder(
+                    itemCount: news.length,
+                    itemBuilder: (context, index) {
+                      bool isFavorite = favorites[news[index].url] ?? false;
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          const SizedBox(width: 10.0),
-                          Expanded(
-                            child: Column(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  news[index].title,
-                                  style: const TextStyle(
-                                      overflow: TextOverflow.clip,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: FadeInImage(
+                                    width: 150,
+                                    height: 120,
+                                    fit: BoxFit.cover,
+                                    placeholder: const AssetImage(
+                                        './assets/epic-loading.gif'),
+                                    image: NetworkImage(
+                                      news[index].img,
+                                    ),
+                                  ),
                                 ),
-                                const SizedBox(height: 10.0),
-                                Row(
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => WebViewPage(
-                                              newsUrl: news[index].url,
+                                const SizedBox(width: 10.0),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        news[index].title,
+                                        style: const TextStyle(
+                                            overflow: TextOverflow.clip,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 10.0),
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      WebViewPage(
+                                                    newsUrl: news[index].url,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: const Text('Leer más'),
+                                          ),
+                                          IconButton(
+                                            onPressed: () async {
+                                              await _sharedPreference
+                                                  .saveFavorite(news[index]);
+                                              setState(() {
+                                                favorites[news[index].url] =
+                                                    !isFavorite;
+                                              });
+                                            },
+                                            icon: Icon(
+                                              isFavorite
+                                                  ? Icons.bookmark
+                                                  : Icons.bookmark_border,
                                             ),
                                           ),
-                                        );
-                                      },
-                                      child: const Text('Leer más'),
-                                    ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        await _sharedPreference
-                                            .saveFavorite(news[index]);
-                                        setState(() {
-                                          favorites[news[index].url] =
-                                              !isFavorite;
-                                        });
-                                      },
-                                      icon: Icon(
-                                        isFavorite
-                                            ? Icons.bookmark
-                                            : Icons.bookmark_border,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        final messageToShare =
-                                            '¡Últimas noticias: ${news[index].title}! 📰\n 📰 ¡Mantente al día con nuestra nueva app de noticias! 📱\n👉 ${news[index].url}\n\n¡Descarga NeryNews ya y no te pierdas ninguna noticia! 🚀📲';
-                                        Share.share(messageToShare);
-                                      },
-                                      icon: const Icon(Icons.share),
-                                    ),
-                                  ],
-                                )
+                                          IconButton(
+                                            onPressed: () {
+                                              final messageToShare =
+                                                  '¡Últimas noticias: ${news[index].title}! 📰\n 📰 ¡Mantente al día con nuestra nueva app de noticias! 📱\n👉 ${news[index].url}\n\n¡Descarga NeryNews ya y no te pierdas ninguna noticia! 🚀📲';
+                                              Share.share(messageToShare);
+                                            },
+                                            icon: const Icon(Icons.share),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }),
-        );
+                        ),
+                      );
+                    }),
+          );
+        });
       },
     );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

@@ -17,7 +17,6 @@ class SharedPreference {
   //??4. Varible ge preferecias
   late SharedPreferences _prefs;
 
-  //??5. funcion para la incializacion de la preferencias
   Future<void> initPrefes() async {
     _prefs = await SharedPreferences.getInstance();
   }
@@ -66,6 +65,5 @@ class SharedPreference {
     _prefs.setBool('isDarkMode', value);
   }
 
-  //??14  setear el guardado de los colores.
   Color defaultColor = const Color.fromRGBO(0, 45, 98, 1);
 }

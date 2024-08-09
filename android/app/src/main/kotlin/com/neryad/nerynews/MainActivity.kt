@@ -1,4 +1,4 @@
-package com.example.rd_loca_news
+package com.neryad.nerynews
 
 import io.flutter.embedding.android.FlutterActivity
 

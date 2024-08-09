@@ -3,7 +3,6 @@ import 'package:rd_loca_news/main.dart';
 import 'package:rd_loca_news/shared/colors.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
 
-//??9. Convertir esto a stateFull
 class SettingPages extends StatefulWidget {
   const SettingPages({super.key});
 
@@ -12,14 +11,10 @@ class SettingPages extends StatefulWidget {
 }
 
 class variables extends State<SettingPages> {
-  //??10. Crear varibles para darke mode y preferecias
-
   bool isDarkMode = false;
   SharedPreference preference = SharedPreference();
-  //??13. Crear widhes y sus funcionalidades
   late Color _selectedColor;
 
-  //??14. habcer override del init
   @override
   void initState() {
     // TODO: implement initState
