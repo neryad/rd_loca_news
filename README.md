@@ -55,7 +55,7 @@ La aplicación Nery News está disponible en Google Play Store para dispositivos
 
 Nery News también está disponible como una Progressive Web App (PWA) para dispositivos iOS y navegadores web. Puedes acceder a la aplicación desde el siguiente enlace:
 
-- [![Acceder a la PWA](https://img.shields.io/badge/PWA-Access%20Now-blue)](enlace_a_version_web)
+- [![Acceder a la PWA](https://img.shields.io/badge/PWA-Access%20Now-blue)](https://nerynews.netlify.app/)
 
 
 ## Backend
