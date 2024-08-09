@@ -73,7 +73,12 @@ Para ver el historial completo de cambios, mejoras y actualizaciones de la aplic
 Este archivo contiene detalles de cada versión, incluyendo nuevas funcionalidades, correcciones de errores y otros cambios importantes.
 
 
+## Versión en Inglés
 
+Si prefieres leer este documento en inglés, visita el siguiente enlace:
+
+- [README en Inglés](./README_EN.md)
+ 
 ## Dependencies
 
 La aplicación Nery News utiliza los siguientes paquetes de Flutter:
