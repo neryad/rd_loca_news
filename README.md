@@ -26,7 +26,7 @@
 - [Dependencias](#dependencias)
 - [Licencia](#licencia)
 - [Legal](#legal)
-- [Versión en Inglés](#versión-en-inglés)
+- [English Version](#versión-en-inglés)
 
 ## Características
 
@@ -131,8 +131,8 @@ Por favor, tómate un momento para revisar nuestros [Términos y Condiciones](./
 - [Términos y Condiciones](./TERMS_AND_CONDITIONS.md)
 - [Política de Privacidad](./PRIVACY_POLICY.md)
 
-## Versión en Inglés
+ ## English Version
 
-Si prefieres leer este documento en inglés, visita el siguiente enlace:
+If you prefer to read this document in Spanish, please visit the following link:
 
-- [README en Inglés](./README_EN.md)
+- [README en Español](./README_EN.md)
