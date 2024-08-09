@@ -43,6 +43,21 @@ Nery News es una aplicación móvil desarrollada en Flutter que proporciona noti
        height="auto">
 </div>
 
+## Acceso a la Aplicación
+
+### Android
+
+La aplicación Nery News está disponible en Google Play Store para dispositivos Android. Puedes descargarla directamente desde el siguiente enlace:
+
+- [![Descargar en Google Play Store](https://img.shields.io/badge/Google%20Play-Download-brightgreen)](enlace_a_play_store)
+
+### iOS y Web
+
+Nery News también está disponible como una Progressive Web App (PWA) para dispositivos iOS y navegadores web. Puedes acceder a la aplicación desde el siguiente enlace:
+
+- [![Acceder a la PWA](https://img.shields.io/badge/PWA-Access%20Now-blue)](enlace_a_version_web)
+
+
 ## Backend
 
 La aplicación Nery News utiliza una API backend desarrollada en Node.js para proporcionar las noticias. Esta API realiza web scraping para obtener contenido de varias fuentes de noticias.
