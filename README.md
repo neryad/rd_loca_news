@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/neryad/shopapp/assets/20806101/6270767f-2a38-427c-ba61-c82b96de5063" alt="Logo de PocketList" >
+  <img src="https://github.com/neryad/rd_loca_news/blob/main/assets/logoNeryNews.jpeg?raw=true" alt="Logo Nery News" >
 </div>
 
 
