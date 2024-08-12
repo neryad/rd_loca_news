@@ -23,6 +23,7 @@
 - [Backend](#backend)
 - [How to Contribute](#how-to-contribute)
 - [Changelog](#changelog)
+- [Contact and Support](#contact-and-support)
 - [Dependencies](#dependencies)
 - [License](#license)
 - [Legal](#legal)
@@ -138,7 +139,7 @@ Please take a moment to review our [Terms and Conditions](./TERMS_AND_CONDITIONS
 - [Terms and Conditions](./TERMS_AND_CONDITIONS.md)
 - [Privacy Policy](./PRIVACY_POLICY.md)
 
-## English Version
+## Spanish Version
 
 If you prefer to read this document in Spanish, please visit the following link:
 
