@@ -23,6 +23,7 @@
 - [Backend](#backend)
 - [Cómo Contribuir](#cómo-contribuir)
 - [Historial de Cambios](#historial-de-cambios)
+- [Contacto y Soporte](contacto-y-soporte)
 - [Dependencias](#dependencias)
 - [Licencia](#licencia)
 - [Legal](#legal)
