@@ -97,6 +97,12 @@ Para abrir un *issue* o discutir nuevas funcionalidades, utiliza el [repositorio
 
 Para ver el historial completo de cambios, mejoras y actualizaciones de la aplicación Nery News, revisa el archivo [CHANGELOG.md](./CHANGELOG.md). Este archivo contiene detalles de cada versión, incluyendo nuevas funcionalidades, correcciones de errores y otros cambios importantes.
 
+## Contacto y Soporte
+
+Si tienes alguna consulta, sugerencia o necesitas soporte, puedes contactarme a través del siguiente correo electrónico:
+
+📧 neryadg@gmail.com.do
+
 ## Dependencias
 
 Nery News utiliza los siguientes paquetes de Flutter:
