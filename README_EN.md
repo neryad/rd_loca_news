@@ -23,6 +23,7 @@
 - [Backend](#backend)
 - [How to Contribute](#how-to-contribute)
 - [Changelog](#changelog)
+- [Contact and Support](#contact-and-support)
 - [Dependencies](#dependencies)
 - [License](#license)
 - [Legal](#legal)
@@ -97,6 +98,13 @@ To open an issue or discuss new features, use the [GitHub repository](https://gi
 
 To view the complete history of changes, improvements, and updates to the Nery News app, check the [CHANGELOG.md](./CHANGELOG.md). This file contains details of each version, including new features, bug fixes, and other significant changes.
 
+## Contact and Support
+
+If you have any questions, suggestions, or need support, feel free to reach out via the following email:
+
+📧 neryadg@gmail.com.do
+
+
 ## Dependencies
 
 Nery News uses the following Flutter packages:
@@ -131,7 +139,7 @@ Please take a moment to review our [Terms and Conditions](./TERMS_AND_CONDITIONS
 - [Terms and Conditions](./TERMS_AND_CONDITIONS.md)
 - [Privacy Policy](./PRIVACY_POLICY.md)
 
-## English Version
+## Spanish Version
 
 If you prefer to read this document in Spanish, please visit the following link:
 
