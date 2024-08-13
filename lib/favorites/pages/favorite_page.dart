@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:rd_loca_news/homePage/models/news_model.dart';
 import 'package:rd_loca_news/homePage/page/web_view_page.dart';
@@ -16,13 +14,13 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    SharedPreference _sharedPreference = SharedPreference();
+    SharedPreference sharedPreference = SharedPreference();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Noticias Favoritas'),
       ),
       body: FutureBuilder(
-          future: _sharedPreference.getFavorites(),
+          future: sharedPreference.getFavorites(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
               return const Center(
@@ -48,7 +46,7 @@ class _FavoritePageState extends State<FavoritePage> {
                             height: 120,
                             fit: BoxFit.cover,
                             placeholder:
-                                AssetImage('./assets/epic-loading.gif'),
+                                const AssetImage('./assets/epic-loading.gif'),
                             image: NetworkImage(
                               news[index].img,
                               // width: 150,
@@ -89,8 +87,8 @@ class _FavoritePageState extends State<FavoritePage> {
                                         child: const Text('Leer mas')),
                                     IconButton(
                                         onPressed: () async {
-                                          await _sharedPreference
-                                              .removeFovorite(news[index].url);
+                                          await sharedPreference
+                                              .removeFavorite(news[index].url);
                                           setState(() {});
                                         },
                                         icon: const Icon(
@@ -99,7 +97,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                     IconButton(
                                         onPressed: () {
                                           final messageToShare =
-                                              '¡Últimas noticias: ${news[index].title}! 📰\n 📰 ¡Mantente al día con nuestra nueva app de noticias! 📱\n👉 ${news[index].url}\n\n¡Descarga NeryNews ya y no te pierdas ninguna noticia! 🚀📲';
+                                              '¡Últimas noticias: ${news[index].title}! 📰\n 📰 ¡Mantente al día con nuestra nueva app de noticias! 📱\n👉 ${news[index].url}\n\n¡Descarga Nery News ya y no te pierdas ninguna noticia! 🚀📲';
 
                                           Share.share(
                                             messageToShare,

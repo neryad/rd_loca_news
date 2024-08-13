@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:rd_loca_news/homePage/models/news_model.dart';
-import 'package:rd_loca_news/shared/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreference {
@@ -14,10 +13,9 @@ class SharedPreference {
 
   SharedPreference._internal();
 
-  //??4. Varible ge preferecias
   late SharedPreferences _prefs;
 
-  Future<void> initPrefes() async {
+  Future<void> initPrefs() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
@@ -43,7 +41,7 @@ class SharedPreference {
     }).toList();
   }
 
-  Future<void> removeFovorite(String url) async {
+  Future<void> removeFavorite(String url) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> favorites = prefs.getStringList('favorite') ?? [];
 
@@ -56,7 +54,6 @@ class SharedPreference {
     await prefs.setStringList('favorite', favorites);
   }
 
-  //??6. Getters and setter para el dark mode
   bool get darkMode {
     return _prefs.getBool('isDarkMode') ?? false;
   }

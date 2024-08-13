@@ -9,15 +9,15 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class NewsCard extends StatefulWidget {
   final String newsPaper;
-  // final webviewController = WebViewController();
-  NewsCard({super.key, required this.newsPaper});
+
+  const NewsCard({super.key, required this.newsPaper});
 
   @override
   State<NewsCard> createState() => _NewsCardState();
 }
 
 class _NewsCardState extends State<NewsCard> {
-  SharedPreference _sharedPreference = SharedPreference();
+  final SharedPreference _sharedPreference = SharedPreference();
   Map<String, bool> favorites = {};
 
   @override
