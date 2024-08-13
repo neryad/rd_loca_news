@@ -1,11 +1,7 @@
+[[plugins]]
+package = "netlify-plugin-flutter"
+   [plugins.inputs]
+    channel = "stable"
 [build]
-  command = "bash ./install_flutter.sh && flutter build web --web-renderer html"
-  publish = "build/web"
-
-[context.production.environment]
-  # Define environment variables if needed
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+command = "flutter build web --web-renderer html --release"
+publish = "build/web"
