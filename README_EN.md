@@ -66,6 +66,8 @@ The Nery News app is available on the Google Play Store for Android devices. You
 
 - [![Download on Google Play Store](https://img.shields.io/badge/Google%20Play-Download-brightgreen)](link_to_play_store)
 
+  🔧 **Note:** The app is currently pending approval. It will be available soon! 🚧
+
 ### iOS and Web
 
 Nery News is also available as a Progressive Web App (PWA) for iOS devices and web browsers. You can access the application via the following link:
