@@ -1,0 +1,11 @@
+[build]
+  command = "bash ./install_flutter.sh && flutter build web --web-renderer html"
+  publish = "build/web"
+
+[context.production.environment]
+  # Define environment variables if needed
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -9,15 +9,15 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class NewsCard extends StatefulWidget {
   final String newsPaper;
-  // final webviewController = WebViewController();
-  NewsCard({super.key, required this.newsPaper});
+
+  const NewsCard({super.key, required this.newsPaper});
 
   @override
   State<NewsCard> createState() => _NewsCardState();
 }
 
 class _NewsCardState extends State<NewsCard> {
-  SharedPreference _sharedPreference = SharedPreference();
+  final SharedPreference _sharedPreference = SharedPreference();
   Map<String, bool> favorites = {};
 
   @override
@@ -39,16 +39,16 @@ class _NewsCardState extends State<NewsCard> {
             child: isWideScreen
                 ? GridView.builder(
                     gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            childAspectRatio: 3 / 2,
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 300,
+                            childAspectRatio: 0.7,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10),
                     itemCount: news.length,
                     itemBuilder: (context, index) {
                       bool isFavorite = favorites[news[index].url] ?? false;
                       return Card(
-                        elevation: 0,
+                        elevation: 2,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -72,10 +72,8 @@ class _NewsCardState extends State<NewsCard> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 news[index].title,
-                                style: const TextStyle(
-                                    overflow: TextOverflow.clip,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold),
+                                style: Theme.of(context).textTheme.titleLarge,
+                                maxLines: 2,
                               ),
                             ),
                             Padding(
