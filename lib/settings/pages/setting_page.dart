@@ -7,23 +7,26 @@ class SettingPages extends StatefulWidget {
   const SettingPages({super.key});
 
   @override
-  State<SettingPages> createState() => variables();
+  State<SettingPages> createState() => Variables();
 }
 
-class variables extends State<SettingPages> {
+class Variables extends State<SettingPages> {
   bool isDarkMode = false;
   SharedPreference preference = SharedPreference();
   late Color _selectedColor;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     isDarkMode = preference.darkMode;
     _selectedColor = preference.defaultColor; // Inicializar _selectedColor
   }
 
-  static const List<String> colorNames = ['Rojo', 'Verde', 'Azul'];
+  static const List<String> colorNames = [
+    'Rojo',
+    'Verde',
+    'Azul',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

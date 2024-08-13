@@ -5,7 +5,7 @@ import 'package:rd_loca_news/shared/shared_preference.dart';
 final prefs = SharedPreference();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await prefs.initPrefes();
+  await prefs.initPrefs();
   runApp(const MainApp());
 }
 
@@ -25,7 +25,6 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -36,7 +35,7 @@ class _MainAppState extends State<MainApp> {
           colorScheme: ColorScheme.fromSeed(
               seedColor: prefs.defaultColor,
               brightness: prefs.darkMode ? Brightness.dark : Brightness.light)),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
