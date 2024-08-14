@@ -68,7 +68,7 @@ La aplicación Nery News está disponible en Google Play Store para dispositivos
 
   🔧 **Nota:** La aplicación aún está en proceso de aprobación. ¡Pronto estará disponible! 🚧
 
-### iOS y Web
+### iOS y Web [![Netlify Status](https://api.netlify.com/api/v1/badges/a4c91845-4e77-4bcd-ae18-52c8181785e4/deploy-status)](https://app.netlify.com/sites/nerynews/deploys)
 
 Nery News también está disponible como una Progressive Web App (PWA) para dispositivos iOS y navegadores web. Puedes acceder a la aplicación desde el siguiente enlace:
 
