@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rd_loca_news/details/models/details_model.dart';
+import 'package:rd_loca_news/details/pages/details_page.dart';
+import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/models/news_model.dart';
 import 'package:rd_loca_news/homePage/page/web_view_page.dart';
 import 'package:rd_loca_news/homePage/services/news_services.dart';
@@ -82,16 +85,15 @@ class _NewsCardState extends State<NewsCard> {
                               child: Row(
                                 children: [
                                   TextButton(
-                                    onPressed: () {
-                                      if (kIsWeb) {
-                                        _launchUrl(news[index].url);
-                                        return;
-                                      }
+                                    onPressed: () async {
+                                      final Detail newDetail =
+                                          await getDetailsOfNew(
+                                              news[index].url);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => WebViewPage(
-                                            newsUrl: news[index].url,
+                                          builder: (context) => DetailsNewsPage(
+                                            newDetails: newDetail,
                                           ),
                                         ),
                                       );
@@ -176,18 +178,21 @@ class _NewsCardState extends State<NewsCard> {
                                       Row(
                                         children: [
                                           TextButton(
-                                            onPressed: () {
+                                            onPressed: () async {
+                                              final Detail newDetail =
+                                                  await getDetailsOfNew(
+                                                      news[index].url);
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      WebViewPage(
-                                                    newsUrl: news[index].url,
+                                                      DetailsNewsPage(
+                                                    newDetails: newDetail,
                                                   ),
                                                 ),
                                               );
                                             },
-                                            child: const Text('Leer más'),
+                                            child: const Text('Leer más2'),
                                           ),
                                           IconButton(
                                             onPressed: () async {
