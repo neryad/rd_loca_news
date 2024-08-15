@@ -64,9 +64,7 @@
 
 La aplicación Nery News está disponible en Google Play Store para dispositivos Android. Puedes descargarla directamente desde el siguiente enlace:
 
-- [![Descargar en Google Play Store](https://img.shields.io/badge/Google%20Play-Download-brightgreen)](enlace_a_play_store)
-
-  🔧 **Nota:** La aplicación aún está en proceso de aprobación. ¡Pronto estará disponible! 🚧
+- [![Descargar en Google Play Store](https://img.shields.io/badge/Google%20Play-Download-brightgreen)](https://play.google.com/store/apps/details?id=com.neryad.nerynews)
 
 ### iOS y Web [![Netlify Status](https://api.netlify.com/api/v1/badges/a4c91845-4e77-4bcd-ae18-52c8181785e4/deploy-status)](https://app.netlify.com/sites/nerynews/deploys)
 
