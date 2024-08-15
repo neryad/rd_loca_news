@@ -13,6 +13,7 @@
 ![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
+
 **Nery News** es una aplicación móvil desarrollada en Flutter que te permite acceder a noticias locales de la República Dominicana desde diversas fuentes en un solo lugar. Diseñada para facilitar la lectura, personalización y compartición de noticias, Nery News es el compañero ideal para estar siempre informado.
 
 ## Tabla de Contenidos
