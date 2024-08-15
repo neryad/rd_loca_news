@@ -192,7 +192,7 @@ class _NewsCardState extends State<NewsCard> {
                                                 ),
                                               );
                                             },
-                                            child: const Text('Leer más2'),
+                                            child: const Text('Leer más'),
                                           ),
                                           IconButton(
                                             onPressed: () async {
