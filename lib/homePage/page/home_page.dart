@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(
                 Icons.newspaper,
               ),
-              label: 'Noticas',
+              label: 'Noticias',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.bookmark),
