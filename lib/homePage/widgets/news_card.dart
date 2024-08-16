@@ -86,9 +86,21 @@ class _NewsCardState extends State<NewsCard> {
                                 children: [
                                   TextButton(
                                     onPressed: () async {
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible:
+                                            false, // Para prevenir que el diálogo se cierre al tocar fuera de él
+                                        builder: (BuildContext context) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                      );
+
                                       final Detail newDetail =
                                           await getDetailsOfNew(
                                               news[index].url);
+                                      Navigator.pop(context);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -179,9 +191,23 @@ class _NewsCardState extends State<NewsCard> {
                                         children: [
                                           TextButton(
                                             onPressed: () async {
+                                              showDialog(
+                                                context: context,
+                                                barrierDismissible:
+                                                    false, // Para prevenir que el diálogo se cierre al tocar fuera de él
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return const Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                                },
+                                              );
+
                                               final Detail newDetail =
                                                   await getDetailsOfNew(
                                                       news[index].url);
+                                              Navigator.pop(context);
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
