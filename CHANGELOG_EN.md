@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.0] - 2024-08-09
+## [0.2.0] - 2024-08-16
+
+### Improved
+- Replaced the WebView with a new and enhanced screen for reading news details.
+
+### Fixed
+- Corrected typographical errors.
+
+## [0.1.0] - 2024-08-09
 
 ### Added
 - **Initial Release**: Launched the first version of the Nery News app with the following features:
