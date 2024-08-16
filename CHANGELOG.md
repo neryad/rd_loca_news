@@ -3,6 +3,14 @@
 
 Todos los cambios notables en este proyecto se documentarán en este archivo.
 
+## [0.2.0] - 2024-08-16
+
+### Mejorado
+- Se ha reemplazado el WebView con una nueva y mejorada pantalla para leer los detalles de las noticias.
+
+### Corregido
+- Corrección de errores ortográficos.
+
 ## [1.1.0] - 2024-08-09
 
 ### Añadido
