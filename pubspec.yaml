@@ -1,7 +1,7 @@
 name: rd_loca_news
 description: "A new Flutter project."
 publish_to: "none"
-version: 0.2.0+574606514
+version: 0.3.0+574606514
 
 environment:
   sdk: ">=3.3.1 <4.0.0"
