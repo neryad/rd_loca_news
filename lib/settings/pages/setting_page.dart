@@ -27,6 +27,7 @@ class Variables extends State<SettingPages> {
     'Verde',
     'Azul',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,40 +36,57 @@ class Variables extends State<SettingPages> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
+        child: Column(
           children: [
-            SwitchListTile(
-              value: preference.darkMode,
-              title: const Text('Modo oscuro'),
-              onChanged: (value) {
-                setState(() {
-                  isDarkMode = !isDarkMode;
-                  preference.darkMode = isDarkMode;
-                  MainApp.stateSet(context);
-                });
-              },
-              secondary: Icon(isDarkMode
-                  ? Icons.dark_mode_outlined
-                  : Icons.light_mode_outlined),
-            ),
-            Column(
-              children: List<Widget>.generate(colors.length, (index) {
-                return RadioListTile<Color>(
-                  title: Text(colorNames[index]),
-                  value: colors[index],
-                  groupValue: _selectedColor,
-                  onChanged: (value) {
-                    if (value != null) {
+            Expanded(
+              child: ListView(
+                children: [
+                  SwitchListTile(
+                    value: preference.darkMode,
+                    title: const Text('Modo oscuro'),
+                    onChanged: (value) {
                       setState(() {
-                        _selectedColor = value;
-                        preference.defaultColor = _selectedColor;
+                        isDarkMode = !isDarkMode;
+                        preference.darkMode = isDarkMode;
                         MainApp.stateSet(context);
                       });
-                    }
-                  },
-                );
-              }),
-            )
+                    },
+                    secondary: Icon(isDarkMode
+                        ? Icons.dark_mode_outlined
+                        : Icons.light_mode_outlined),
+                  ),
+                  Column(
+                    children: List<Widget>.generate(colors.length, (index) {
+                      return RadioListTile<Color>(
+                        title: Text(colorNames[index]),
+                        value: colors[index],
+                        groupValue: _selectedColor,
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() {
+                              _selectedColor = value;
+                              preference.defaultColor = _selectedColor;
+                              MainApp.stateSet(context);
+                            });
+                          }
+                        },
+                      );
+                    }),
+                  ),
+                ],
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Text(
+                'Hecho con 💙 & Flutter by Nery',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+              ),
+            ),
           ],
         ),
       ),

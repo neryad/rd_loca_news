@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:rd_loca_news/details/models/details_model.dart';
+import 'package:rd_loca_news/details/pages/details_page.dart';
+import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/models/news_model.dart';
-import 'package:rd_loca_news/homePage/page/web_view_page.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -74,15 +78,32 @@ class _FavoritePageState extends State<FavoritePage> {
                                 child: Row(
                                   children: [
                                     TextButton(
-                                        onPressed: () {
+                                        onPressed: () async {
+                                          showDialog(
+                                            context: context,
+                                            barrierDismissible:
+                                                false, // Para prevenir que el diálogo se cierre al tocar fuera de él
+                                            builder: (BuildContext context) {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            },
+                                          );
+
+                                          final Detail newDetail =
+                                              await getDetailsOfNew(
+                                                  news[index].url);
+                                          Navigator.pop(context);
                                           Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      WebViewPage(
-                                                        newsUrl:
-                                                            news[index].url,
-                                                      )));
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailsNewsPage(
+                                                newDetails: newDetail,
+                                              ),
+                                            ),
+                                          );
                                         },
                                         child: const Text('Leer mas')),
                                     IconButton(

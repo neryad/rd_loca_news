@@ -1,7 +1,7 @@
 name: rd_loca_news
 description: "A new Flutter project."
 publish_to: "none"
-version: 0.2.0+574606514
+version: 0.3.0+574606514
 
 environment:
   sdk: ">=3.3.1 <4.0.0"
@@ -17,7 +17,6 @@ dependencies:
   share_plus: ^9.0.0
   shared_preferences: ^2.3.1
   url_launcher: ^6.3.0
-  webview_flutter: ^4.7.0
 
 dev_dependencies:
   flutter_lints: ^3.0.0

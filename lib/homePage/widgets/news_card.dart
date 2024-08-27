@@ -1,14 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:rd_loca_news/details/models/details_model.dart';
 import 'package:rd_loca_news/details/pages/details_page.dart';
 import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/models/news_model.dart';
-import 'package:rd_loca_news/homePage/page/web_view_page.dart';
 import 'package:rd_loca_news/homePage/services/news_services.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class NewsCard extends StatefulWidget {
   final String newsPaper;
@@ -207,6 +206,7 @@ class _NewsCardState extends State<NewsCard> {
                                               final Detail newDetail =
                                                   await getDetailsOfNew(
                                                       news[index].url);
+
                                               Navigator.pop(context);
                                               Navigator.push(
                                                 context,
@@ -260,9 +260,9 @@ class _NewsCardState extends State<NewsCard> {
     );
   }
 
-  Future<void> _launchUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url))) {
-      throw Exception('Could not launch $url');
-    }
-  }
+  // Future<void> _launchUrl(String url) async {
+  //   if (!await launchUrl(Uri.parse(url))) {
+  //     throw Exception('Could not launch $url');
+  //   }
+  // }
 }
