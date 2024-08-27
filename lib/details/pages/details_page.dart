@@ -54,7 +54,7 @@ class DetailsNewsPage extends StatelessWidget {
                             '¡Últimas noticias: ${newDetails.title}! 📰\n 📰 ¡Mantente al día con nuestra nueva app de noticias! 📱\n👉 ${newDetails.url}\n\n¡Descarga NeryNews ya y no te pierdas ninguna noticia! 🚀📲';
                         Share.share(messageToShare);
                       },
-                      icon: Icon(Icons.share))
+                      icon: const Icon(Icons.share))
                 ],
               ),
             )

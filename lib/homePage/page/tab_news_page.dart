@@ -7,7 +7,7 @@ class TabNewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 6,
       initialIndex: 1,
       child: Scaffold(
         appBar: AppBar(
@@ -28,6 +28,9 @@ class TabNewsPage extends StatelessWidget {
             Tab(
               text: 'Nuevo diario',
             ),
+            Tab(
+              text: 'El hoy',
+            ),
           ]),
         ),
         body: const TabBarView(children: <Widget>[
@@ -46,6 +49,9 @@ class TabNewsPage extends StatelessWidget {
           NewsCard(
             newsPaper: 'nuevoDiario',
           ),
+          NewsCard(
+            newsPaper: 'hoy',
+          )
         ]),
       ),
     );
