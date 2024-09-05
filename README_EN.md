@@ -62,11 +62,10 @@
 
 ### Android
 
+
 The Nery News app is available on the Google Play Store for Android devices. You can download it directly from the following link:
 
-- [![Download on Google Play Store](https://img.shields.io/badge/Google%20Play-Download-brightgreen)](link_to_play_store)
-
-  🔧 **Note:** The app is currently pending approval. It will be available soon! 🚧
+- [![Download on Google Play Store](https://img.shields.io/badge/Google%20Play-Download-brightgreen)](https://play.google.com/store/apps/details?id =com.neryad.nerynews)
 
 ### iOS and Web
 
