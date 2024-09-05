@@ -125,8 +125,6 @@ Nery News utiliza los siguientes paquetes de Flutter:
   Facilita el almacenamiento y recuperación de datos simples.
 - `url_launcher`: ^6.3.0  
   Permite abrir URLs en un navegador web o aplicaciones externas.
-- `webview_flutter`: ^4.7.0  
-  Permite mostrar contenido web dentro de la aplicación.
 
 ## Licencia
 
