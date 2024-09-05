@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2024-08-26
+
+### Añadido
+-**Nuevo Canal de Noticias: Ahora puedes acceder al contenido del Periódico El Hoy, proporcionando una fuente adicional de información actualizada.
+
+##Mejorado
+-**Eliminación de Dependencia: Se ha removido el paquete WebView para optimizar el rendimiento y reducir el tamaño de la aplicación.
+-**Se han implementado diversas mejoras bajo el capó para optimizar el rendimiento y la estabilidad de la aplicación.
+
 ## [0.2.0] - 2024-08-16
 
 ### Improved
