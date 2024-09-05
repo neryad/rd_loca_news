@@ -3,6 +3,15 @@
 
 Todos los cambios notables en este proyecto se documentarán en este archivo.
 
+## [0.3.0] - 2024-08-26
+
+### Añadido
+-**Nuevo Canal de Noticias: Ahora puedes acceder al contenido del Periódico El Hoy, proporcionando una fuente adicional de información actualizada.
+
+##Mejorado
+-**Eliminación de Dependencia: Se ha removido el paquete WebView para optimizar el rendimiento y reducir el tamaño de la aplicación.
+-**Se han implementado diversas mejoras bajo el capó para optimizar el rendimiento y la estabilidad de la aplicación.
+
 ## [0.2.0] - 2024-08-16
 
 ### Mejorado
@@ -11,7 +20,7 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 ### Corregido
 - Corrección de errores ortográficos.
 
-## [1.1.0] - 2024-08-09
+## [0.1.0] - 2024-08-09
 
 ### Añadido
 - **Modo Oscuro**: Implementación del modo oscuro para una mejor experiencia de lectura en condiciones de baja luz.
@@ -28,4 +37,3 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 ### Notas
 - Esta versión incluye mejoras importantes en la experiencia del usuario y la estabilidad de la aplicación. Se recomienda a todos los usuarios que actualicen a la última versión para disfrutar de las nuevas funcionalidades y mejoras.
-
