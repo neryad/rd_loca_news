@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rd_loca_news/homePage/widgets/news_card.dart';
 
-class TabNewsPage extends StatelessWidget {
+class TabNewsPage extends StatefulWidget {
   const TabNewsPage({super.key});
 
+  @override
+  State<TabNewsPage> createState() => _TabNewsPageState();
+}
+
+class _TabNewsPageState extends State<TabNewsPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -51,7 +56,7 @@ class TabNewsPage extends StatelessWidget {
           ),
           NewsCard(
             newsPaper: 'hoy',
-          )
+          ),
         ]),
       ),
     );

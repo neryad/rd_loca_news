@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rd_loca_news/homePage/page/home_page.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
 
 final prefs = SharedPreference();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // unawaited(MobileAds.instance.initialize());
+  // unawaited(MobileAds.instance.initialize());
+  // unawaited(MobileAds.instance.initialize());
+  MobileAds.instance.initialize();
   await prefs.initPrefs();
+
   runApp(const MainApp());
 }
 
