@@ -1,7 +1,7 @@
 name: rd_loca_news
 description: "A new Flutter project."
 publish_to: "none"
-version: 0.3.0+574606515
+version: 0.4.0+1726664920
 
 environment:
   sdk: ">=3.3.1 <4.0.0"
@@ -29,3 +29,5 @@ flutter:
 
   assets:
     - assets/
+executables:
+  version_manager: bin/version_manager.dart
