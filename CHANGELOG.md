@@ -3,6 +3,20 @@
 
 Todos los cambios notables en este proyecto se documentarán en este archivo.
 
+## [0.4.2] - 2024-09-20
+
+### Añadido
+-**Anuncions: gregado un banner de anuncios en la pantalla de inicio para recaudar fondos y apoyar el desarrollo continuo de la app.
+
+
+## [0.2.0] - 2024-08-16
+
+### Mejorado
+- Se ha reemplazado el WebView con una nueva y mejorada pantalla para leer los detalles de las noticias.
+
+### Corregido
+- Corrección de errores ortográficos.
+
 ## [0.3.0] - 2024-08-26
 
 ### Añadido
