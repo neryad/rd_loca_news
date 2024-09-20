@@ -2,9 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.2] - 2024-09-20
+
+### Added
+-**Ads: Added an ad banner on the home screen to raise funds and support ongoing app development.
+
 ## [0.3.0] - 2024-08-26
 
-### Añadido
+### Added
 -**Nuevo Canal de Noticias: Ahora puedes acceder al contenido del Periódico El Hoy, proporcionando una fuente adicional de información actualizada.
 
 ##Mejorado
