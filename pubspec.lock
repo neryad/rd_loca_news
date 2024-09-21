@@ -42,7 +42,7 @@ packages:
     source: hosted
     version: "2.1.1"
   change_app_package_name:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: change_app_package_name
       sha256: f734e127d334053873733fb61b1ecae73c09abb694b759a4afd26aa9c9547850
@@ -167,7 +167,7 @@ packages:
     source: hosted
     version: "3.0.2"
   flutter_native_splash:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_native_splash
       sha256: aa06fec78de2190f3db4319dd60fdc8d12b2626e93ef9828633928c2dcaea840
@@ -217,7 +217,7 @@ packages:
     source: hosted
     version: "4.0.2"
   icons_launcher:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: icons_launcher
       sha256: "9b514ffed6ed69b232fd2bf34c44878c8526be71fc74129a658f35c04c9d4a9d"
