@@ -1,11 +1,38 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rd_loca_news/details/models/details_model.dart';
+import 'package:rd_loca_news/shared/ad_helper.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailsNewsPage extends StatelessWidget {
+class DetailsNewsPage extends StatefulWidget {
   final Detail newDetails;
   const DetailsNewsPage({super.key, required this.newDetails});
+
+  @override
+  State<DetailsNewsPage> createState() => _DetailsNewsPageState();
+}
+
+class _DetailsNewsPageState extends State<DetailsNewsPage> {
+  BannerAd? _bannerAd;
+  @override
+  void initState() {
+    super.initState();
+    BannerAd(
+        adUnitId: AdHelper.bannerAdUnitId,
+        request: const AdRequest(),
+        size: AdSize.banner,
+        listener: BannerAdListener(onAdLoaded: (ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        }, onAdFailedToLoad: (ad, err) {
+          log('Falo en cargar el banner add: ${err.message}');
+          ad.dispose();
+        })).load();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +40,7 @@ class DetailsNewsPage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           _CustomAppBar(
-            detail: newDetails,
+            detail: widget.newDetails,
           ),
           SliverList(
               delegate: SliverChildListDelegate([
@@ -22,26 +49,32 @@ class DetailsNewsPage extends StatelessWidget {
             ),
             Center(
                 child: Text(
-              newDetails.title,
+              widget.newDetails.title,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               maxLines: 5,
               textAlign: TextAlign.center,
             )),
             _Overview(
-              overView: newDetails.content,
+              overView: widget.newDetails.content,
             ),
             _AuthorInfo(
-              author: newDetails.author,
-              date: newDetails.published.toString(),
-              source: newDetails.source,
+              author: widget.newDetails.author,
+              date: widget.newDetails.published.toString(),
+              source: widget.newDetails.source,
             ),
+            if (_bannerAd != null)
+              SizedBox(
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButton(
                     onPressed: () async {
-                      await _launchUrl(newDetails.url);
+                      await _launchUrl(widget.newDetails.url);
                     },
                     child: const Text(
                       'ir a la fuente',
@@ -51,7 +84,7 @@ class DetailsNewsPage extends StatelessWidget {
                   IconButton(
                       onPressed: () {
                         final messageToShare =
-                            '¡Últimas noticias: ${newDetails.title}! 📰\n 📰 ¡Mantente al día con nuestra nueva app de noticias! 📱\n👉 ${newDetails.url}\n\n¡Descarga NeryNews ya y no te pierdas ninguna noticia! 🚀📲';
+                            '¡Últimas noticias: ${widget.newDetails.title}! 📰\n 📰 ¡Mantente al día con nuestra nueva app de noticias! 📱\n👉 ${widget.newDetails.url}\n\n¡Descarga NeryNews ya y no te pierdas ninguna noticia! 🚀📲';
                         Share.share(messageToShare);
                       },
                       icon: const Icon(Icons.share))
