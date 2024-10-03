@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rd_loca_news/main.dart';
+import 'package:rd_loca_news/settings/pages/changelo.dart';
 import 'package:rd_loca_news/shared/colors.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
 
@@ -73,6 +74,21 @@ class Variables extends State<SettingPages> {
                       );
                     }),
                   ),
+                  ListTile(
+                    title: const Text('Historial de cambios'),
+                    leading: const Icon(Icons.library_books_sharp),
+                    trailing: (const Icon(Icons.arrow_forward_ios)),
+                    subtitle: const Text(
+                        'Listados de los cambios y versiones del app'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChangeLog(),
+                        ),
+                      );
+                    },
+                  )
                 ],
               ),
             ),
