@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rd_loca_news/main.dart';
+import 'package:rd_loca_news/settings/widgets/markdownViewer.dart';
 import 'package:rd_loca_news/shared/colors.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingPages extends StatefulWidget {
   const SettingPages({super.key});
@@ -73,10 +75,81 @@ class Variables extends State<SettingPages> {
                       );
                     }),
                   ),
+                  ListTile(
+                    leading: const Icon(Icons
+                        .history_rounded), // Icono más adecuado para el historial
+                    title: const Text('Historial de cambios'),
+                    subtitle: const Text(
+                        'Consulta las versiones anteriores de la app y los cambios realizados.'),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MarkdownViewer(
+                                  fileRoute: 'assets/mdFiles/CHANGELOG.md')));
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                        Icons.article_rounded), // Icono para documentos
+                    title: const Text('Términos y condiciones'),
+                    subtitle: const Text(
+                        'Lee los términos y condiciones de uso de la app.'),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MarkdownViewer(
+                                  fileRoute:
+                                      'assets/mdFiles/TERMS_AND_CONDITIONS.md')));
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons
+                        .privacy_tip_rounded), // Icono para políticas de privacidad
+                    title: const Text('Política de privacidad'),
+                    subtitle: const Text(
+                        'Infórmate sobre cómo manejamos tus datos personales.'),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MarkdownViewer(
+                                  fileRoute:
+                                      'assets/mdFiles/PRIVACY_POLICY.md')));
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.code_rounded),
+                    title: const Text('Repositorio en GitHub'),
+                    subtitle: const Text('Visita el repositorio del proyecto'),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                    onTap: () {
+                      _launchUrl(
+                          'https://github.com/neryad/rd_loca_news'); // Reemplaza con tu URL de GitHub
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.favorite_border_rounded),
+                    title: const Text('Apoya el proyecto'),
+                    subtitle: const Text(
+                        'Deja una donación para contribuir al proyecto, las mismas son opcionales'),
+                    trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                    onTap: () {
+                      _launchUrl(
+                          'https://paypal.me/neryad?country.x=DO&locale.x=en_US'); // Reemplaza con tu URL de donación
+                    },
+                  ),
                 ],
               ),
             ),
-            const Spacer(),
+            //  const Spacer(),
+            const SizedBox(
+              height: 15,
+            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Text(
@@ -91,5 +164,11 @@ class Variables extends State<SettingPages> {
         ),
       ),
     );
+  }
+}
+
+Future<void> _launchUrl(String url) async {
+  if (!await launchUrl(Uri.parse(url))) {
+    throw Exception('Could not launch $url');
   }
 }
