@@ -32,5 +32,6 @@ flutter:
   assets:
     - assets/
     - assets/mdFiles/
+    - shorebird.yaml
 executables:
   version_manager: bin/version_manager.dart
