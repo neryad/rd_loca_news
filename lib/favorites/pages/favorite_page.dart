@@ -141,6 +141,8 @@
 // }
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rd_loca_news/details/models/details_model.dart';
@@ -557,63 +559,125 @@ class _FavoritePageState extends State<FavoritePage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Center(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Cargando noticia...',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
+      builder: (_) => Center(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(16),
           ),
-        );
-      },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.primary),
+              const SizedBox(height: 16),
+              Text('Cargando noticia...',
+                  style: TextStyle(color: Colors.grey[700], fontSize: 14)),
+            ],
+          ),
+        ),
+      ),
     );
 
     try {
-      final Detail newDetail = await getDetailsOfNew(newsItem.url);
-      Navigator.pop(context);
+      final service = DetailsService();
+      final detail = await service.getDetailsOfNew(newsItem.url);
+
+      if (!mounted) return;
+      Navigator.pop(context); // Cerrar loading
+
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => DetailsNewsPage(
-            newDetails: newDetail,
-          ),
-        ),
+        MaterialPageRoute(builder: (_) => DetailsNewsPage(newDetails: detail)),
       );
-    } catch (e) {
+    } on DetailsServiceException catch (e) {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Error al cargar los detalles'),
-          action: SnackBarAction(
-            label: 'Reintentar',
-            onPressed: () => _navigateToDetails(newsItem),
-          ),
+          content: Text(e.message),
+          action: e.type == DetailsErrorType.timeout ||
+                  e.type == DetailsErrorType.noConnection
+              ? SnackBarAction(
+                  label: 'Reintentar',
+                  onPressed: () => _navigateToDetails(newsItem))
+              : null,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
         ),
+      );
+      log('❌ DetailsServiceException: ${e.message}\nOriginal: ${e.originalError}');
+    } catch (e, st) {
+      Navigator.pop(context);
+      log('❌ Error inesperado en _navigateToDetails: $e\n$st');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('Error inesperado: $e'),
+            behavior: SnackBarBehavior.floating),
       );
     }
   }
+
+  // Future<void> _navigateToDetails(News newsItem) async {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (BuildContext context) {
+  //       return Center(
+  //         child: Container(
+  //           padding: const EdgeInsets.all(20),
+  //           decoration: BoxDecoration(
+  //             color: Theme.of(context).colorScheme.surface,
+  //             borderRadius: BorderRadius.circular(16),
+  //           ),
+  //           child: Column(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               CircularProgressIndicator(
+  //                 color: Theme.of(context).colorScheme.primary,
+  //               ),
+  //               const SizedBox(height: 16),
+  //               Text(
+  //                 'Cargando noticia...',
+  //                 style: TextStyle(
+  //                   color: Colors.grey[700],
+  //                   fontSize: 14,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+
+  //   try {
+  //     final Detail newDetail = await getDetailsOfNew(newsItem.url);
+  //     Navigator.pop(context);
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => DetailsNewsPage(
+  //           newDetails: newDetail,
+  //         ),
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     Navigator.pop(context);
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: const Text('Error al cargar los detalles'),
+  //         action: SnackBarAction(
+  //           label: 'Reintentar',
+  //           onPressed: () => _navigateToDetails(newsItem),
+  //         ),
+  //         behavior: SnackBarBehavior.floating,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(10),
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
 
   Future<void> _showRemoveDialog(News newsItem) async {
     final result = await showDialog<bool>(

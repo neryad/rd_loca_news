@@ -460,25 +460,27 @@ class _NewsCardState extends State<NewsCard> {
 
     try {
       final service = DetailsService();
-      service.initialize();
       final detail = await service.getDetailsOfNew(newsItem.url);
 
-      Navigator.pop(context); // Cerrar loading
+      if (!mounted) return;
+      Navigator.pop(context);
+
+      if (!mounted) return;
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DetailsNewsPage(
-            newDetails: detail,
-          ),
+          builder: (_) => DetailsNewsPage(newDetails: detail),
         ),
       );
     } on DetailsServiceException catch (e) {
-      Navigator.pop(context); // Cerrar loading
+      if (!mounted) return;
+      Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(e.userMessage),
-          action: e.isRetryable
+          content: Text(e.message),
+          action: (e.type == DetailsErrorType.timeout ||
+                  e.type == DetailsErrorType.noConnection)
               ? SnackBarAction(
                   label: 'Reintentar',
                   onPressed: () => _navigateToDetails(newsItem),
@@ -491,7 +493,9 @@ class _NewsCardState extends State<NewsCard> {
         ),
       );
     } catch (e) {
+      if (!mounted) return;
       Navigator.pop(context);
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('Error inesperado'),

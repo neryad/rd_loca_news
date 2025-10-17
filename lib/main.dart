@@ -25,7 +25,7 @@ void main() async {
 
   // Inicializar servicios de API (singleton pattern)
   NewsService().initialize();
-  DetailsService().initialize();
+  // DetailsService().initialize();
 
   runApp(const MainApp());
 }
