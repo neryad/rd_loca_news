@@ -41,7 +41,7 @@ class _NewsCardState extends State<NewsCard> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getNews(widget.newsPaper),
+      future: NewsService().getNews(widget.newsPaper),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -459,13 +459,34 @@ class _NewsCardState extends State<NewsCard> {
     );
 
     try {
-      final Detail newDetail = await getDetailsOfNew(newsItem.url);
-      Navigator.pop(context);
+      final service = DetailsService();
+      service.initialize();
+      final detail = await service.getDetailsOfNew(newsItem.url);
+
+      Navigator.pop(context); // Cerrar loading
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => DetailsNewsPage(
-            newDetails: newDetail,
+            newDetails: detail,
+          ),
+        ),
+      );
+    } on DetailsServiceException catch (e) {
+      Navigator.pop(context); // Cerrar loading
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.userMessage),
+          action: e.isRetryable
+              ? SnackBarAction(
+                  label: 'Reintentar',
+                  onPressed: () => _navigateToDetails(newsItem),
+                )
+              : null,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
       );
@@ -473,15 +494,70 @@ class _NewsCardState extends State<NewsCard> {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Error al cargar los detalles'),
-          action: SnackBarAction(
-            label: 'Reintentar',
-            onPressed: () => _navigateToDetails(newsItem),
-          ),
+          content: const Text('Error inesperado'),
+          behavior: SnackBarBehavior.floating,
         ),
       );
     }
   }
+
+  // Future<void> _navigateToDetails(News newsItem) async {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (BuildContext context) {
+  //       return Center(
+  //         child: Container(
+  //           padding: const EdgeInsets.all(20),
+  //           decoration: BoxDecoration(
+  //             color: Theme.of(context).colorScheme.surface,
+  //             borderRadius: BorderRadius.circular(16),
+  //           ),
+  //           child: Column(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               CircularProgressIndicator(
+  //                 color: Theme.of(context).colorScheme.primary,
+  //               ),
+  //               const SizedBox(height: 16),
+  //               Text(
+  //                 'Cargando noticia...',
+  //                 style: TextStyle(
+  //                   color: Colors.grey[700],
+  //                   fontSize: 14,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+
+  //   try {
+  //     final Detail newDetail = await getDetailsOfNew(newsItem.url);
+  //     Navigator.pop(context);
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => DetailsNewsPage(
+  //           newDetails: newDetail,
+  //         ),
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     Navigator.pop(context);
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: const Text('Error al cargar los detalles'),
+  //         action: SnackBarAction(
+  //           label: 'Reintentar',
+  //           onPressed: () => _navigateToDetails(newsItem),
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
 
   Future<void> _toggleFavorite(News newsItem) async {
     await _sharedPreference.saveFavorite(newsItem);

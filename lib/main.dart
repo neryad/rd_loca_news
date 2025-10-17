@@ -1,16 +1,31 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/page/home_page.dart';
+import 'package:rd_loca_news/homePage/services/news_services.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
 
 final prefs = SharedPreference();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // unawaited(MobileAds.instance.initialize());
-  // unawaited(MobileAds.instance.initialize());
-  // unawaited(MobileAds.instance.initialize());
-  MobileAds.instance.initialize();
-  await prefs.initPrefs();
+
+  try {
+    // Inicializar servicios en paralelo para mejor performance
+    await Future.wait([
+      MobileAds.instance.initialize(),
+      prefs.initPrefs(),
+    ]);
+
+    log('✅ Servicios inicializados correctamente');
+  } catch (e) {
+    log('❌ Error al inicializar servicios: $e');
+  }
+
+  // Inicializar servicios de API (singleton pattern)
+  NewsService().initialize();
+  DetailsService().initialize();
 
   runApp(const MainApp());
 }
@@ -38,9 +53,11 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: prefs.defaultColor,
-              brightness: prefs.darkMode ? Brightness.dark : Brightness.light)),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: prefs.defaultColor,
+          brightness: prefs.darkMode ? Brightness.dark : Brightness.light,
+        ),
+      ),
       home: const HomePage(),
     );
   }

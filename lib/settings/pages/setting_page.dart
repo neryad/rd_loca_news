@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rd_loca_news/about/about_page.dart';
 import 'package:rd_loca_news/main.dart';
 import 'package:rd_loca_news/shared/colors.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
@@ -178,6 +179,64 @@ class Variables extends State<SettingPages> {
                         ],
                       );
                     }),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // Sección de Información
+                _buildSectionHeader('Información', Icons.info_outline),
+                const SizedBox(height: 8),
+
+                // Card para Acerca de
+                Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                      color: Theme.of(context).dividerColor.withOpacity(0.2),
+                    ),
+                  ),
+                  child: ListTile(
+                    leading: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: _selectedColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.info_outline,
+                        color: _selectedColor,
+                        size: 24,
+                      ),
+                    ),
+                    title: const Text(
+                      'Acerca de',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: const Text(
+                      'Información de la app y desarrollador',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: Colors.grey[600],
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutPage(),
+                        ),
+                      );
+                    },
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                   ),
                 ),
 
