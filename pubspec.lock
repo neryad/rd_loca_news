@@ -200,6 +200,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutterfy:
+    dependency: "direct dev"
+    description:
+      name: flutterfy
+      sha256: "430e987828b4ce2c59f8e27b9017d83be21939bb3c0d15447ef3de0aee3a1ac5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1+1727741864"
   google_mobile_ads:
     dependency: "direct main"
     description:
