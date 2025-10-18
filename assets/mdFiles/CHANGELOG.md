@@ -2,7 +2,7 @@
 
 Todos los cambios notables en este proyecto se documentarán en este archivo.
 
-## [1.0.0+1726917677] - 2025-10-17
+## [1.0.0+1760752330] - 2025-10-17
 
 ### 🎨 Refactorización completa de UI/UX
 
