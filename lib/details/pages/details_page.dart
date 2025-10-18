@@ -1,9 +1,6 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rd_loca_news/details/models/details_model.dart';
-import 'package:rd_loca_news/shared/ad_helper.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,31 +13,16 @@ class DetailsNewsPage extends StatefulWidget {
 }
 
 class _DetailsNewsPageState extends State<DetailsNewsPage> {
-  BannerAd? _bannerAd;
+  // BannerAd? _bannerAd;
 
   @override
   void initState() {
     super.initState();
-    BannerAd(
-        adUnitId: AdHelper.bannerAdUnitId,
-        request: const AdRequest(),
-        size: AdSize.banner,
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            setState(() {
-              _bannerAd = ad as BannerAd;
-            });
-          },
-          onAdFailedToLoad: (ad, err) {
-            log('Fallo en cargar el banner add: ${err.message}');
-            ad.dispose();
-          },
-        )).load();
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
+    // _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -95,19 +77,6 @@ class _DetailsNewsPageState extends State<DetailsNewsPage> {
                 ),
 
                 const SizedBox(height: 24),
-
-                // Banner Ad con separación visual
-                if (_bannerAd != null) ...[
-                  const Divider(height: 32),
-                  Center(
-                    child: SizedBox(
-                      width: _bannerAd!.size.width.toDouble(),
-                      height: _bannerAd!.size.height.toDouble(),
-                      child: AdWidget(ad: _bannerAd!),
-                    ),
-                  ),
-                  const Divider(height: 32),
-                ],
 
                 // Botones de acción mejorados
                 Padding(

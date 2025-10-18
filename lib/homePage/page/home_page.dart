@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rd_loca_news/favorites/pages/favorite_page.dart';
 import 'package:rd_loca_news/homePage/page/tab_news_page.dart';
 import 'package:rd_loca_news/settings/pages/setting_page.dart';
@@ -23,8 +23,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   ];
 
   int _currentIndex = 0;
-  BannerAd? _bannerAd;
-  bool _isAdLoading = true;
+  // BannerAd? _bannerAd;
+  // bool _isAdLoading = true;
   late AnimationController _fadeController;
 
   void onTabTapped(int index) {
@@ -46,37 +46,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-
-    _loadBannerAd();
-  }
-
-  void _loadBannerAd() {
-    BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd;
-            _isAdLoading = false;
-          });
-          _fadeController.forward();
-        },
-        onAdFailedToLoad: (ad, err) {
-          log('Fallo al cargar el banner ad: ${err.message}');
-          setState(() {
-            _isAdLoading = false;
-          });
-          ad.dispose();
-        },
-      ),
-    ).load();
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
+    // _bannerAd?.dispose();
     _fadeController.dispose();
     super.dispose();
   }
@@ -112,43 +86,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ),
           ),
-
-          // Banner Ad con animación y mejor manejo de estados
-          if (_isAdLoading)
-            SizedBox(
-              height: 50,
-              child: Center(
-                child: SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      theme.colorScheme.primary.withOpacity(0.3),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          else if (_bannerAd != null)
-            FadeTransition(
-              opacity: _fadeController,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: theme.dividerColor.withOpacity(0.1),
-                      width: 1,
-                    ),
-                  ),
-                ),
-                child: SizedBox(
-                  width: _bannerAd!.size.width.toDouble(),
-                  height: _bannerAd!.size.height.toDouble(),
-                  child: AdWidget(ad: _bannerAd!),
-                ),
-              ),
-            ),
         ],
       ),
 

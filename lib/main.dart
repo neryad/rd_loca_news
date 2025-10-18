@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/page/home_page.dart';
 import 'package:rd_loca_news/homePage/services/news_services.dart';
@@ -14,7 +14,7 @@ void main() async {
   try {
     // Inicializar servicios en paralelo para mejor performance
     await Future.wait([
-      MobileAds.instance.initialize(),
+      // MobileAds.instance.initialize(),
       prefs.initPrefs(),
     ]);
 
