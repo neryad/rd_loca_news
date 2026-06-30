@@ -2,6 +2,36 @@
 
 Todos los cambios notables en este proyecto se documentarán en este archivo.
 
+## [1.0.0+1760752330] - 2025-10-17
+
+### 🎨 Refactorización completa de UI/UX
+
+- **HomePage**, **TabNewsPage**, **NewsCard**, **FavoritePage** y **SettingsPage** completamente rediseñadas.
+- Se añadieron **animaciones profesionales** y transiciones suaves en toda la app.
+- Diseño **moderno, limpio y consistente**, con enfoque en la experiencia del usuario.
+
+### 🏗️ Arquitectura mejorada
+
+- Implementación del **patrón Singleton** en los servicios.
+- **Sistema de caché** optimizado para mejorar el rendimiento general.
+- Nuevo manejo de errores más **robusto y seguro** en toda la aplicación.
+
+### 🚀 Nuevas funcionalidades
+
+- **Pull to refresh** para recargar noticias fácilmente.
+- **Swipe to delete** en secciones interactivas.
+- **Hero animations** entre pantallas para una navegación más fluida.
+- Nueva **página “Acerca de”** con información del proyecto.
+- Estados de **carga y error mejorados** con indicadores visuales más claros.
+
+### ⚡ Optimización de performance
+
+- **Carga paralela de servicios** para mejorar la velocidad de inicio.
+- **Caché persistente** de noticias y detalles para una experiencia más rápida.
+- Uso del **Singleton pattern en Dio** para reducir instancias y mejorar eficiencia.
+
+---
+
 ## [0.4.3+1728097348] - 2024-10-04
 
 ### Añadido
@@ -15,25 +45,18 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 ### Añadido
 
--\*\*Anuncions: gregado un banner de anuncios en la pantalla de inicio para recaudar fondos y apoyar el desarrollo continuo de la app.
-
-## [0.2.0] - 2024-08-16
-
-### Mejorado
-
-- Se ha reemplazado el WebView con una nueva y mejorada pantalla para leer los detalles de las noticias.
-
-### Corregido
-
-- Corrección de errores ortográficos.
+- **Anuncios**: Agregado un banner de anuncios en la pantalla de inicio para recaudar fondos y apoyar el desarrollo continuo de la app.
 
 ## [0.3.0] - 2024-08-26
 
 ### Añadido
 
--\*\*Nuevo Canal de Noticias: Ahora puedes acceder al contenido del Periódico El Hoy, proporcionando una fuente adicional de información actualizada.
+- **Nuevo Canal de Noticias**: Ahora puedes acceder al contenido del Periódico El Hoy, proporcionando una fuente adicional de información actualizada.
 
-##Mejorado -**Eliminación de Dependencia: Se ha removido el paquete WebView para optimizar el rendimiento y reducir el tamaño de la aplicación. -**Se han implementado diversas mejoras bajo el capó para optimizar el rendimiento y la estabilidad de la aplicación.
+### Mejorado
+
+- **Eliminación de Dependencia**: Se ha removido el paquete WebView para optimizar el rendimiento y reducir el tamaño de la aplicación.
+- **Optimización general**: Se han implementado diversas mejoras bajo el capó para optimizar el rendimiento y la estabilidad de la aplicación.
 
 ## [0.2.0] - 2024-08-16
 

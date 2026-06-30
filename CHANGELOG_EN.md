@@ -2,43 +2,91 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0+1760752330] - 2025-10-17
+
+### 🎨 Complete UI/UX Refactor
+
+- Fully redesigned **HomePage**, **TabNewsPage**, **NewsCard**, **FavoritePage**, and **SettingsPage**.
+- Added **professional animations** and smooth transitions across the app.
+- **Modern, clean, and consistent** design focused on user experience.
+
+### 🏗️ Improved Architecture
+
+- Implemented **Singleton pattern** for services.
+- Optimized **cache system** to significantly enhance performance.
+- New and more **robust error handling** throughout the app.
+
+### 🚀 New Features
+
+- **Pull to refresh** to easily reload news.
+- **Swipe to delete** in interactive sections.
+- **Hero animations** between pages for smoother navigation.
+- Added a new **“About” page** with project information.
+- Improved **loading and error states** with clearer visual feedback.
+
+### ⚡ Performance Optimization
+
+- **Parallel service loading** for faster startup.
+- **Persistent caching** of news and details for a quicker experience.
+- **Singleton pattern for Dio** to reduce instances and boost efficiency.
+
+---
+
+## [0.4.3+1728097348] - 2024-10-04
+
+### Added
+
+- **Markdown File Reader**: Added functionality to read **Terms and Conditions** and **Privacy Policy** directly from within the app.
+- **New Options**: Two new entries were added under the Information section:
+  - Link to the project’s **GitHub Repository**.
+  - **Donate** option to support ongoing app development.
+
 ## [0.4.2] - 2024-09-20
 
 ### Added
--**Ads: Added an ad banner on the home screen to raise funds and support ongoing app development.
+
+- **Advertisements**: Added a banner ad on the home screen to help fund and support ongoing development.
 
 ## [0.3.0] - 2024-08-26
 
 ### Added
--**Nuevo Canal de Noticias: Ahora puedes acceder al contenido del Periódico El Hoy, proporcionando una fuente adicional de información actualizada.
 
-##Mejorado
--**Eliminación de Dependencia: Se ha removido el paquete WebView para optimizar el rendimiento y reducir el tamaño de la aplicación.
--**Se han implementado diversas mejoras bajo el capó para optimizar el rendimiento y la estabilidad de la aplicación.
+- **New News Channel**: You can now access content from _El Hoy_ newspaper, providing an additional and reliable source of updated information.
+
+### Improved
+
+- **Dependency Removal**: The WebView package was removed to optimize performance and reduce app size.
+- **General Optimization**: Various under-the-hood improvements were made to enhance performance and stability.
 
 ## [0.2.0] - 2024-08-16
 
 ### Improved
-- Replaced the WebView with a new and enhanced screen for reading news details.
+
+- Replaced WebView with a new and improved screen for reading detailed news articles.
 
 ### Fixed
-- Corrected typographical errors.
+
+- Fixed several spelling mistakes.
 
 ## [0.1.0] - 2024-08-09
 
 ### Added
-- **Initial Release**: Launched the first version of the Nery News app with the following features:
-  - **Access to Multiple Newspapers**: Users can read news from various local sources.
-  - **Favorites**: Ability to save favorite articles for quick access.
-  - **Share News**: Functionality to share news articles with friends and family.
-  - **Detailed Reading**: Read full articles from the original news sources.
-  - **UI Customization**: Options to adjust the theme and colors of the app according to user preferences.
-- **Backend API**: Integrated a Node.js backend API that performs web scraping to provide news content.
-- **Progressive Web App (PWA)**: Availability of the app as a PWA for iOS devices and web browsers.
+
+- **Dark Mode**: Added dark theme for better readability in low-light conditions.
+- **Push Notifications**: Integrated push notifications to alert users about the latest news and updates.
+- **New Interface Design**: Updated the app’s interface for more intuitive and user-friendly navigation.
+
+### Improved
+
+- **Loading Speed**: Improved loading speed for articles and news feeds.
+- **Accessibility**: Enhanced accessibility support, including compatibility with screen readers.
 
 ### Fixed
-- Initial setup and configuration issues addressed.
+
+- **Favorite Saving Bug**: Fixed an issue where some articles weren’t being saved properly to favorites.
+- **Compatibility Issues**: Resolved issues affecting older Android devices.
 
 ### Notes
-- This is the first release of the Nery News app. Future updates will include additional features and improvements based on user feedback and requirements.
 
+- This version includes important improvements to user experience and stability.  
+  It’s recommended that all users update to the latest version to enjoy the new features and enhancements.
