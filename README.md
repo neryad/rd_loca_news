@@ -8,9 +8,7 @@
 # Nery News
 
 [![Built with Flutter](https://img.shields.io/badge/Built_with-Flutter-blue.svg)](https://flutter.dev/)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
-![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)
-![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen)
+![Version](https://img.shields.io/badge/Version-1.1.0-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 
@@ -109,16 +107,14 @@ Si tienes alguna consulta, sugerencia o necesitas soporte, puedes contactarme a 
 
 Nery News utiliza los siguientes paquetes de Flutter:
 
-- `change_app_package_name`: ^1.3.0  
-  Permite cambiar el nombre del paquete de la aplicación.
+- `cached_network_image`: ^3.4.0  
+  Carga y cachea imágenes de red de manera eficiente.
 - `dio`: ^5.4.2+1  
   Cliente HTTP para Flutter, facilita la gestión de peticiones y respuestas HTTP.
 - `flutter_animate`: ^4.5.0  
   Herramienta para agregar animaciones a tu aplicación Flutter.
-- `flutter_native_splash`: ^2.4.1  
-  Genera pantallas de inicio nativas para iOS y Android.
-- `icons_launcher`: ^2.1.7  
-  Crea iconos personalizados para la aplicación.
+- `flutter_markdown_plus`: ^1.0.7  
+  Renderizado de archivos Markdown para términos y políticas.
 - `share_plus`: ^9.0.0  
   Permite compartir contenido con otras aplicaciones.
 - `shared_preferences`: ^2.3.1  

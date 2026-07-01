@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0+1782867387] - 2026-06-30
+
+### 🛠️ SDK & Dependencies
+
+- **Android SDK updated**: Kotlin 2.0.0, Java 17, AGP 8.6.0, Gradle 8.7
+- `flutter_markdown` (discontinued) replaced with `flutter_markdown_plus`
+- `google_mobile_ads` removed (unused code)
+- SDK constraint in `pubspec.yaml` updated to `>=3.10.0-0`
+
+### 🐛 Bug Fixes
+
+- Pull-to-refresh now forces data reload (was returning cached data)
+- Hero animations now work correctly between list and detail pages
+- Loading dialog replaced with SnackBar loading for better UX
+- `defaultColor` now persists correctly across app restarts
+- Silenced `_launchUrl` errors now show user feedback
+
+### ⚡ Performance
+
+- `NetworkImage` replaced with `CachedNetworkImage` across the app (image caching)
+- `MainApp.stateSet()` anti-pattern replaced with `ValueNotifier<ThemeMode>`
+- `withOpacity()` migrated to `.withValues(alpha:)` (43 occurrences)
+
+### 📱 UI/UX
+
+- Improved loading skeletons with clearer indicators
+- Error states now display the actual exception message
+- `RadioListTile` migrated to `RadioGroup` (new Flutter 3.32+ API)
+
+### 🔧 Code Quality
+
+- `analysis_options.yaml` with strict-casts, strict-inference, strict-raw-types
+- 5 unused imports removed
+- `final` variables where applicable
+- Typed `catch` clauses with `on Exception`
+- `flutter analyze` — **0 issues**
+
+---
+
 ## [1.0.0+1760752330] - 2025-10-17
 
 ### 🎨 Complete UI/UX Refactor
