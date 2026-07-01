@@ -145,7 +145,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:rd_loca_news/details/models/details_model.dart';
 import 'package:rd_loca_news/details/pages/details_page.dart';
 import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/models/news_model.dart';
@@ -175,7 +174,7 @@ class _FavoritePageState extends State<FavoritePage> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: colorScheme.primary.withOpacity(0.1),
+                color: colorScheme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
@@ -278,13 +277,13 @@ class _FavoritePageState extends State<FavoritePage> {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.bookmark_border,
               size: 80,
-              color: theme.colorScheme.primary.withOpacity(0.5),
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
             ),
           ),
           const SizedBox(height: 24),
@@ -313,10 +312,10 @@ class _FavoritePageState extends State<FavoritePage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: theme.colorScheme.primary.withOpacity(0.2),
+                color: theme.colorScheme.primary.withValues(alpha: 0.2),
               ),
             ),
             child: Row(
@@ -433,7 +432,7 @@ class _FavoritePageState extends State<FavoritePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
-            color: theme.dividerColor.withOpacity(0.1),
+            color: theme.dividerColor.withValues(alpha: 0.1),
           ),
         ),
         child: InkWell(
@@ -556,7 +555,7 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 
   Future<void> _navigateToDetails(News newsItem) async {
-    showDialog(
+    await showDialog<bool>(
       context: context,
       barrierDismissible: false,
       builder: (_) => Center(
@@ -587,9 +586,9 @@ class _FavoritePageState extends State<FavoritePage> {
       if (!mounted) return;
       Navigator.pop(context); // Cerrar loading
 
-      Navigator.push(
+      await Navigator.push<void>(
         context,
-        MaterialPageRoute(builder: (_) => DetailsNewsPage(newDetails: detail)),
+        MaterialPageRoute<void>(builder: (_) => DetailsNewsPage(newDetails: detail)),
       );
     } on DetailsServiceException catch (e) {
       Navigator.pop(context);
@@ -606,7 +605,7 @@ class _FavoritePageState extends State<FavoritePage> {
         ),
       );
       log('❌ DetailsServiceException: ${e.message}\nOriginal: ${e.originalError}');
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       Navigator.pop(context);
       log('❌ Error inesperado en _navigateToDetails: $e\n$st');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -748,7 +747,7 @@ class _FavoritePageState extends State<FavoritePage> {
         );
         setState(() {});
       }
-    } catch (e) {
+    } on Exception catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
 class MarkdownViewer extends StatefulWidget {
   final String fileRoute;
 
   const MarkdownViewer({super.key, required this.fileRoute});
   @override
-  _MarkdownViewerState createState() => _MarkdownViewerState();
+  MarkdownViewerState createState() => MarkdownViewerState();
 }
 
-class _MarkdownViewerState extends State<MarkdownViewer> {
+class MarkdownViewerState extends State<MarkdownViewer> {
   String markdownContent = '';
 
   @override
@@ -43,7 +43,7 @@ class _MarkdownViewerState extends State<MarkdownViewer> {
       ),
       body: markdownContent.isNotEmpty
           ? Markdown(data: markdownContent)
-          : Center(
+          : const Center(
               child:
                   CircularProgressIndicator()), // Cargando mientras se lee el archivo
     );

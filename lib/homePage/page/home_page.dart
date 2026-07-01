@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rd_loca_news/favorites/pages/favorite_page.dart';
 import 'package:rd_loca_news/homePage/page/tab_news_page.dart';
 import 'package:rd_loca_news/settings/pages/setting_page.dart';
-import 'package:rd_loca_news/shared/ad_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -94,7 +91,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, -2),
             ),
@@ -138,15 +135,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildNavIcon(IconData icon, int index, {bool isActive = false}) {
-    final isSelected = _currentIndex == index;
-
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: isActive
-            ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
             : Colors.transparent,
         borderRadius: BorderRadius.circular(12),
       ),

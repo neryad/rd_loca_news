@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:rd_loca_news/details/models/details_model.dart';
 import 'package:share_plus/share_plus.dart';
@@ -128,7 +127,7 @@ class _CustomAppBar extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 Colors.transparent,
-                Colors.black.withOpacity(0.7),
+                Colors.black.withValues(alpha: 0.7),
               ],
             ),
           ),
@@ -180,7 +179,7 @@ class _MetadataChips extends StatelessWidget {
       } else {
         return '${date.day}/${date.month}/${date.year}';
       }
-    } catch (e) {
+    } on Exception catch (_) {
       return dateStr;
     }
   }

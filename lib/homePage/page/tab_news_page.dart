@@ -73,7 +73,7 @@ class _TabNewsPageState extends State<TabNewsPage>
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: colorScheme.primary.withOpacity(0.1),
+                color: colorScheme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
@@ -113,7 +113,7 @@ class _TabNewsPageState extends State<TabNewsPage>
                 height: 48,
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 decoration: BoxDecoration(
-                  color: colorScheme.primary.withOpacity(0.05),
+                  color: colorScheme.primary.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: TabBar(
@@ -127,7 +127,7 @@ class _TabNewsPageState extends State<TabNewsPage>
                   indicatorSize: TabBarIndicatorSize.tab,
                   dividerColor: Colors.transparent,
                   labelColor: Colors.white,
-                  unselectedLabelColor: colorScheme.onSurface.withOpacity(0.6),
+                  unselectedLabelColor: colorScheme.onSurface.withValues(alpha: 0.6),
                   labelStyle: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,

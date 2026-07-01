@@ -20,11 +20,11 @@ class SharedPreference {
   }
 
   Future<void> saveFavorite(News article) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    List<String> favorites = prefs.getStringList('favorite') ?? [];
+    final List<String> favorites = prefs.getStringList('favorite') ?? [];
 
-    String articleJson = jsonEncode(article.toJson());
+    final String articleJson = jsonEncode(article.toJson());
 
     favorites.add(articleJson);
 
@@ -32,21 +32,21 @@ class SharedPreference {
   }
 
   Future<List<News>> getFavorites() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favorites = prefs.getStringList('favorite') ?? [];
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String> favorites = prefs.getStringList('favorite') ?? [];
 
     return favorites.map((articleJson) {
-      Map<String, dynamic> articleMap = jsonDecode(articleJson);
+      final Map<String, dynamic> articleMap = jsonDecode(articleJson) as Map<String, dynamic>;
       return News.fromJson(articleMap);
     }).toList();
   }
 
   Future<void> removeFavorite(String url) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favorites = prefs.getStringList('favorite') ?? [];
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String> favorites = prefs.getStringList('favorite') ?? [];
 
     favorites.removeWhere((articleJson) {
-      Map<String, dynamic> articleMap = jsonDecode(articleJson);
+      final Map<String, dynamic> articleMap = jsonDecode(articleJson) as Map<String, dynamic>;
 
       return articleMap['url'] == url;
     });
@@ -62,5 +62,13 @@ class SharedPreference {
     _prefs.setBool('isDarkMode', value);
   }
 
-  Color defaultColor = const Color.fromRGBO(0, 45, 98, 1);
+  Color get defaultColor {
+    final value = _prefs.getInt('defaultColor');
+    if (value != null) return Color(value);
+    return const Color.fromRGBO(0, 45, 98, 1);
+  }
+
+  set defaultColor(Color color) {
+    _prefs.setInt('defaultColor', color.toARGB32());
+  }
 }

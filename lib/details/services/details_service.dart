@@ -73,7 +73,7 @@ class DetailsService {
       }
 
       log('🔄 Obteniendo detalles de: $url');
-      final response = await _dio.post('/details', data: {'url': url});
+      final response = await _dio.post<dynamic>('/details', data: {'url': url});
       log('RAW RESPONSE: ${response.data}');
 
       final data = response.data;
@@ -86,7 +86,7 @@ class DetailsService {
 
       Detail detail;
       try {
-        detail = Detail.fromJson(data['data']);
+        detail = Detail.fromJson(data['data'] as Map<String, dynamic>);
         // // Fallback de imagen si es null
         // detail.img ??= 'https://via.placeholder.com/150';
       } catch (e) {
@@ -116,7 +116,7 @@ class DetailsService {
     try {
       final uri = Uri.parse(url);
       return uri.hasScheme && (uri.scheme == 'http' || uri.scheme == 'https');
-    } catch (_) {
+    } on Exception catch (_) {
       return false;
     }
   }

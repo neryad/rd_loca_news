@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.0
-  flutter_markdown: ^0.7.3+2
+  flutter_markdown_plus: ^1.0.7
   share_plus: ^9.0.0
   shared_preferences: ^2.3.1
   url_launcher: ^6.3.0

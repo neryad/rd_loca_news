@@ -58,7 +58,7 @@
 //                   shape: RoundedRectangleBorder(
 //                     borderRadius: BorderRadius.circular(12),
 //                     side: BorderSide(
-//                       color: Theme.of(context).dividerColor.withOpacity(0.2),
+//                       color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
 //                     ),
 //                   ),
 //                   child: SwitchListTile(
@@ -84,7 +84,7 @@
 //                     secondary: Container(
 //                       padding: const EdgeInsets.all(8),
 //                       decoration: BoxDecoration(
-//                         color: _selectedColor.withOpacity(0.1),
+//                         color: _selectedColor.withValues(alpha: 0.1),
 //                         borderRadius: BorderRadius.circular(8),
 //                       ),
 //                       child: Icon(
@@ -108,7 +108,7 @@
 //                   shape: RoundedRectangleBorder(
 //                     borderRadius: BorderRadius.circular(12),
 //                     side: BorderSide(
-//                       color: Theme.of(context).dividerColor.withOpacity(0.2),
+//                       color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
 //                     ),
 //                   ),
 //                   child: Column(
@@ -134,7 +134,7 @@
 //                                     ),
 //                                     boxShadow: [
 //                                       BoxShadow(
-//                                         color: colors[index].withOpacity(0.3),
+//                                         color: colors[index].withValues(alpha: 0.3),
 //                                         blurRadius: 4,
 //                                         offset: const Offset(0, 2),
 //                                       ),
@@ -174,7 +174,7 @@
 //                               endIndent: 16,
 //                               color: Theme.of(context)
 //                                   .dividerColor
-//                                   .withOpacity(0.1),
+//                                   .withValues(alpha: 0.1),
 //                             ),
 //                         ],
 //                       );
@@ -194,14 +194,14 @@
 //                   shape: RoundedRectangleBorder(
 //                     borderRadius: BorderRadius.circular(12),
 //                     side: BorderSide(
-//                       color: Theme.of(context).dividerColor.withOpacity(0.2),
+//                       color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
 //                     ),
 //                   ),
 //                   child: ListTile(
 //                     leading: Container(
 //                       padding: const EdgeInsets.all(8),
 //                       decoration: BoxDecoration(
-//                         color: _selectedColor.withOpacity(0.1),
+//                         color: _selectedColor.withValues(alpha: 0.1),
 //                         borderRadius: BorderRadius.circular(8),
 //                       ),
 //                       child: Icon(
@@ -246,10 +246,10 @@
 //                 Container(
 //                   padding: const EdgeInsets.all(16),
 //                   decoration: BoxDecoration(
-//                     color: _selectedColor.withOpacity(0.05),
+//                     color: _selectedColor.withValues(alpha: 0.05),
 //                     borderRadius: BorderRadius.circular(12),
 //                     border: Border.all(
-//                       color: _selectedColor.withOpacity(0.1),
+//                       color: _selectedColor.withValues(alpha: 0.1),
 //                     ),
 //                   ),
 //                   child: Row(
@@ -282,7 +282,7 @@
 //             decoration: BoxDecoration(
 //               border: Border(
 //                 top: BorderSide(
-//                   color: Theme.of(context).dividerColor.withOpacity(0.1),
+//                   color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
 //                 ),
 //               ),
 //             ),
@@ -345,7 +345,7 @@ import 'package:flutter/material.dart';
 import 'package:rd_loca_news/about/about_page.dart';
 
 import 'package:rd_loca_news/main.dart';
-import 'package:rd_loca_news/settings/widgets/markdowmViewer.dart';
+import 'package:rd_loca_news/settings/widgets/markdown_viewer.dart';
 
 import 'package:rd_loca_news/shared/colors.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
@@ -398,7 +398,7 @@ class Variables extends State<SettingPages> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: Theme.of(context).dividerColor.withOpacity(0.2),
+                      color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
                     ),
                   ),
                   child: SwitchListTile(
@@ -424,7 +424,7 @@ class Variables extends State<SettingPages> {
                     secondary: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: _selectedColor.withOpacity(0.1),
+                        color: _selectedColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Icon(
@@ -448,75 +448,77 @@ class Variables extends State<SettingPages> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: Theme.of(context).dividerColor.withOpacity(0.2),
+                      color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
                     ),
                   ),
-                  child: Column(
-                    children: List<Widget>.generate(colors.length, (index) {
-                      final isLast = index == colors.length - 1;
+                  child: RadioGroup<Color>(
+                    groupValue: _selectedColor,
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          _selectedColor = value;
+                          preference.defaultColor = _selectedColor;
+                          MainApp.stateSet(context);
+                        });
+                      }
+                    },
+                    child: Column(
+                      children: List<Widget>.generate(colors.length, (index) {
+                        final isLast = index == colors.length - 1;
 
-                      return Column(
-                        children: [
-                          RadioListTile<Color>(
-                            title: Row(
-                              children: [
-                                Container(
-                                  width: 24,
-                                  height: 24,
-                                  decoration: BoxDecoration(
-                                    color: colors[index],
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: 2,
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: colors[index].withOpacity(0.3),
-                                        blurRadius: 4,
-                                        offset: const Offset(0, 2),
+                        return Column(
+                          children: [
+                            RadioListTile<Color>(
+                              title: Row(
+                                children: [
+                                  Container(
+                                    width: 24,
+                                    height: 24,
+                                    decoration: BoxDecoration(
+                                      color: colors[index],
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 2,
                                       ),
-                                    ],
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: colors[index].withValues(alpha: 0.3),
+                                          blurRadius: 4,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 12),
-                                Text(
-                                  colorNames[index],
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
+                                  const SizedBox(width: 12),
+                                  Text(
+                                    colorNames[index],
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              value: colors[index],
+                              activeColor: colors[index],
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
                             ),
-                            value: colors[index],
-                            groupValue: _selectedColor,
-                            activeColor: colors[index],
-                            onChanged: (value) {
-                              if (value != null) {
-                                setState(() {
-                                  _selectedColor = value;
-                                  preference.defaultColor = _selectedColor;
-                                  MainApp.stateSet(context);
-                                });
-                              }
-                            },
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
-                          ),
-                          if (!isLast)
-                            Divider(
-                              height: 1,
-                              indent: 16,
-                              endIndent: 16,
-                              color: Theme.of(context)
-                                  .dividerColor
-                                  .withOpacity(0.1),
-                            ),
-                        ],
-                      );
-                    }),
+                            if (!isLast)
+                              Divider(
+                                height: 1,
+                                indent: 16,
+                                endIndent: 16,
+                                color: Theme.of(context)
+                                    .dividerColor
+                                    .withValues(alpha: 0.1),
+                              ),
+                          ],
+                        );
+                      }),
+                    ),
                   ),
                 ),
 
@@ -532,7 +534,7 @@ class Variables extends State<SettingPages> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: Theme.of(context).dividerColor.withOpacity(0.2),
+                      color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
                     ),
                   ),
                   child: Column(
@@ -545,7 +547,7 @@ class Variables extends State<SettingPages> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            MaterialPageRoute<void>(
                               builder: (context) => const MarkdownViewer(
                                 fileRoute:
                                     'assets/mdFiles/TERMS_AND_CONDITIONS.md',
@@ -563,7 +565,7 @@ class Variables extends State<SettingPages> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            MaterialPageRoute<void>(
                               builder: (context) => const MarkdownViewer(
                                 fileRoute: 'assets/mdFiles/PRIVACY_POLICY.md',
                               ),
@@ -587,7 +589,7 @@ class Variables extends State<SettingPages> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: Theme.of(context).dividerColor.withOpacity(0.2),
+                      color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
                     ),
                   ),
                   child: Column(
@@ -618,7 +620,7 @@ class Variables extends State<SettingPages> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            MaterialPageRoute<void>(
                               builder: (context) => const MarkdownViewer(
                                 fileRoute: 'assets/mdFiles/CHANGELOG.md',
                               ),
@@ -641,7 +643,7 @@ class Variables extends State<SettingPages> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: Theme.of(context).dividerColor.withOpacity(0.2),
+                      color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
                     ),
                   ),
                   child: _buildListTile(
@@ -652,7 +654,7 @@ class Variables extends State<SettingPages> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
+                        MaterialPageRoute<void>(
                           builder: (context) => const AboutPage(),
                         ),
                       );
@@ -666,10 +668,10 @@ class Variables extends State<SettingPages> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: _selectedColor.withOpacity(0.05),
+                    color: _selectedColor.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: _selectedColor.withOpacity(0.1),
+                      color: _selectedColor.withValues(alpha: 0.1),
                     ),
                   ),
                   child: Row(
@@ -702,7 +704,7 @@ class Variables extends State<SettingPages> {
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(
-                  color: Theme.of(context).dividerColor.withOpacity(0.1),
+                  color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
                 ),
               ),
             ),
@@ -772,7 +774,7 @@ class Variables extends State<SettingPages> {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: _selectedColor.withOpacity(0.1),
+          color: _selectedColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Icon(
@@ -810,7 +812,7 @@ class Variables extends State<SettingPages> {
       height: 1,
       indent: 16,
       endIndent: 16,
-      color: Theme.of(context).dividerColor.withOpacity(0.1),
+      color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
     );
   }
 
@@ -820,14 +822,10 @@ class Variables extends State<SettingPages> {
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       }
-    } catch (e) {
+    } on Exception catch (_) {
       // Error al abrir URL
     }
   }
 }
 
-Future<void> _launchUrl(String url) async {
-  if (!await launchUrl(Uri.parse(url))) {
-    throw Exception('Could not launch $url');
-  }
-}
+

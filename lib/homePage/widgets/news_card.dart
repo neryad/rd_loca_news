@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:rd_loca_news/details/models/details_model.dart';
 import 'package:rd_loca_news/details/pages/details_page.dart';
 import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/models/news_model.dart';
@@ -40,9 +39,9 @@ class _NewsCardState extends State<NewsCard> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<List<News>>(
       future: NewsService().getNews(widget.newsPaper),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<News>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: Column(
@@ -94,7 +93,7 @@ class _NewsCardState extends State<NewsCard> {
           );
         }
 
-        if (!snapshot.hasData || snapshot.data.isEmpty) {
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -117,11 +116,11 @@ class _NewsCardState extends State<NewsCard> {
           );
         }
 
-        final List<News> news = snapshot.data;
+        final List<News> news = snapshot.data!;
 
         return LayoutBuilder(
           builder: (context, constraints) {
-            bool isWideScreen = constraints.maxWidth > 800;
+            final bool isWideScreen = constraints.maxWidth > 800;
 
             return RefreshIndicator(
               onRefresh: () async {
@@ -152,7 +151,7 @@ class _NewsCardState extends State<NewsCard> {
   }
 
   Widget _buildGridCard(News newsItem, int index) {
-    bool isFavorite = favorites[newsItem.url] ?? false;
+    final bool isFavorite = favorites[newsItem.url] ?? false;
     final theme = Theme.of(context);
 
     return Card(
@@ -160,7 +159,7 @@ class _NewsCardState extends State<NewsCard> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: theme.dividerColor.withOpacity(0.1),
+          color: theme.dividerColor.withValues(alpha: 0.1),
         ),
       ),
       child: InkWell(
@@ -211,7 +210,7 @@ class _NewsCardState extends State<NewsCard> {
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Colors.black.withOpacity(0.6),
+                              Colors.black.withValues(alpha: 0.6),
                               Colors.transparent,
                             ],
                           ),
@@ -299,7 +298,7 @@ class _NewsCardState extends State<NewsCard> {
   }
 
   Widget _buildListCard(News newsItem, int index) {
-    bool isFavorite = favorites[newsItem.url] ?? false;
+    final bool isFavorite = favorites[newsItem.url] ?? false;
     final theme = Theme.of(context);
 
     return Card(
@@ -307,7 +306,7 @@ class _NewsCardState extends State<NewsCard> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: theme.dividerColor.withOpacity(0.1),
+          color: theme.dividerColor.withValues(alpha: 0.1),
         ),
       ),
       child: InkWell(
@@ -426,7 +425,7 @@ class _NewsCardState extends State<NewsCard> {
   }
 
   Future<void> _navigateToDetails(News newsItem) async {
-    showDialog(
+    await showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -466,9 +465,9 @@ class _NewsCardState extends State<NewsCard> {
       Navigator.pop(context);
 
       if (!mounted) return;
-      Navigator.push(
+      await Navigator.push<void>(
         context,
-        MaterialPageRoute(
+        MaterialPageRoute<void>(
           builder: (_) => DetailsNewsPage(newDetails: detail),
         ),
       );
@@ -492,13 +491,13 @@ class _NewsCardState extends State<NewsCard> {
           ),
         ),
       );
-    } catch (e) {
+    } on Exception catch (_) {
       if (!mounted) return;
       Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Error inesperado'),
+        const SnackBar(
+          content: Text('Error inesperado'),
           behavior: SnackBarBehavior.floating,
         ),
       );

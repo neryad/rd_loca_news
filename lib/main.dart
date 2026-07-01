@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/page/home_page.dart';
 import 'package:rd_loca_news/homePage/services/news_services.dart';
 import 'package:rd_loca_news/shared/shared_preference.dart';
@@ -19,7 +18,7 @@ void main() async {
     ]);
 
     log('✅ Servicios inicializados correctamente');
-  } catch (e) {
+  } on Exception catch (e) {
     log('❌ Error al inicializar servicios: $e');
   }
 
@@ -34,7 +33,7 @@ class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   static void stateSet(BuildContext context) {
-    _MainAppState? state = context.findAncestorStateOfType<_MainAppState>();
+    final _MainAppState? state = context.findAncestorStateOfType<_MainAppState>();
     // ignore: invalid_use_of_protected_member
     state?.setState(() {});
   }
