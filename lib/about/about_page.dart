@@ -228,7 +228,7 @@ class AboutPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   _infoRow(
                     'Versión',
-                    '1.0.0+1',
+                    '1.1.0',
                     colorScheme,
                   ),
                   const SizedBox(height: 8),
