@@ -418,7 +418,7 @@ class Variables extends State<SettingPages> {
                       setState(() {
                         isDarkMode = !isDarkMode;
                         preference.darkMode = isDarkMode;
-                        MainApp.stateSet(context);
+                        themeModeNotifier.value = isDarkMode ? ThemeMode.dark : ThemeMode.light;
                       });
                     },
                     secondary: Container(
@@ -458,7 +458,7 @@ class Variables extends State<SettingPages> {
                         setState(() {
                           _selectedColor = value;
                           preference.defaultColor = _selectedColor;
-                          MainApp.stateSet(context);
+                          themeModeNotifier.value = isDarkMode ? ThemeMode.dark : ThemeMode.light;
                         });
                       }
                     },
@@ -821,9 +821,25 @@ class Variables extends State<SettingPages> {
       final uri = Uri.parse(url);
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('No se pudo abrir: $url'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
       }
     } on Exception catch (_) {
-      // Error al abrir URL
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Error al abrir el enlace'),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
     }
   }
 }

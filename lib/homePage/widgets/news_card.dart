@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rd_loca_news/details/pages/details_page.dart';
@@ -21,6 +22,7 @@ class NewsCard extends StatefulWidget {
 class _NewsCardState extends State<NewsCard> {
   final SharedPreference _sharedPreference = SharedPreference();
   Map<String, bool> favorites = {};
+  int _refreshKey = 0;
 
   @override
   void initState() {
@@ -40,7 +42,7 @@ class _NewsCardState extends State<NewsCard> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<News>>(
-      future: NewsService().getNews(widget.newsPaper),
+      future: NewsService().getNews(widget.newsPaper, forceRefresh: _refreshKey > 0),
       builder: (BuildContext context, AsyncSnapshot<List<News>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -68,18 +70,21 @@ class _NewsCardState extends State<NewsCard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 64,
-                  color: Colors.grey[400],
-                ),
+                Icon(Icons.error_outline, size: 64, color: Colors.grey[400]),
                 const SizedBox(height: 16),
                 Text(
                   'Error al cargar noticias',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.w500,
+                  style: TextStyle(fontSize: 16, color: Colors.grey[600], fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 4),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  child: Text(
+                    snapshot.error.toString(),
+                    style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -124,7 +129,10 @@ class _NewsCardState extends State<NewsCard> {
 
             return RefreshIndicator(
               onRefresh: () async {
-                setState(() {});
+                NewsService().clearCacheFor(widget.newsPaper);
+                setState(() {
+                  _refreshKey++;
+                });
               },
               child: isWideScreen ? _buildGridView(news) : _buildListView(news),
             );
@@ -170,7 +178,7 @@ class _NewsCardState extends State<NewsCard> {
           children: [
             // Imagen
             Hero(
-              tag: 'news_${newsItem.url}_$index',
+              tag: 'news_img_${newsItem.url}',
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -178,25 +186,22 @@ class _NewsCardState extends State<NewsCard> {
                 ),
                 child: Stack(
                   children: [
-                    FadeInImage(
+                    CachedNetworkImage(
                       width: double.infinity,
                       height: 180,
                       fit: BoxFit.cover,
-                      placeholder:
-                          const AssetImage('./assets/epic-loading.gif'),
-                      image: NetworkImage(newsItem.img),
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          width: double.infinity,
-                          height: 180,
-                          color: Colors.grey[300],
-                          child: Icon(
-                            Icons.broken_image,
-                            size: 48,
-                            color: Colors.grey[500],
-                          ),
-                        );
-                      },
+                      imageUrl: newsItem.img,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        color: Colors.grey[300],
+                        child: Icon(
+                          Icons.broken_image,
+                          size: 48,
+                          color: Colors.grey[500],
+                        ),
+                      ),
                     ),
                     // Gradiente sobre la imagen
                     Positioned(
@@ -319,27 +324,27 @@ class _NewsCardState extends State<NewsCard> {
             children: [
               // Imagen
               Hero(
-                tag: 'news_${newsItem.url}_$index',
+                tag: 'news_img_${newsItem.url}',
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: FadeInImage(
+                  child: CachedNetworkImage(
                     width: 120,
                     height: 120,
                     fit: BoxFit.cover,
-                    placeholder: const AssetImage('./assets/epic-loading.gif'),
-                    image: NetworkImage(newsItem.img),
-                    imageErrorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 120,
-                        height: 120,
-                        color: Colors.grey[300],
-                        child: Icon(
-                          Icons.broken_image,
-                          size: 32,
-                          color: Colors.grey[500],
-                        ),
-                      );
-                    },
+                    imageUrl: newsItem.img,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      width: 120,
+                      height: 120,
+                      color: Colors.grey[300],
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 32,
+                        color: Colors.grey[500],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -425,44 +430,31 @@ class _NewsCardState extends State<NewsCard> {
   }
 
   Future<void> _navigateToDetails(News newsItem) async {
-    await showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Center(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Cargando noticia...',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
+    if (!mounted) return;
+
+    final messenger = ScaffoldMessenger.of(context);
+    final snackBar = SnackBar(
+      content: const Row(
+        children: [
+          SizedBox(
+            width: 18, height: 18,
+            child: CircularProgressIndicator(strokeWidth: 2),
           ),
-        );
-      },
+          SizedBox(width: 12),
+          Text('Cargando noticia...'),
+        ],
+      ),
+      duration: const Duration(seconds: 10),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
+    messenger.showSnackBar(snackBar);
 
     try {
       final service = DetailsService();
       final detail = await service.getDetailsOfNew(newsItem.url);
 
-      if (!mounted) return;
-      Navigator.pop(context);
+      messenger.hideCurrentSnackBar();
 
       if (!mounted) return;
       await Navigator.push<void>(
@@ -472,10 +464,9 @@ class _NewsCardState extends State<NewsCard> {
         ),
       );
     } on DetailsServiceException catch (e) {
+      messenger.hideCurrentSnackBar();
       if (!mounted) return;
-      Navigator.pop(context);
-
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.showSnackBar(
         SnackBar(
           content: Text(e.message),
           action: (e.type == DetailsErrorType.timeout ||
@@ -486,81 +477,20 @@ class _NewsCardState extends State<NewsCard> {
                 )
               : null,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       );
-    } on Exception catch (_) {
+    } on Exception catch (e) {
+      messenger.hideCurrentSnackBar();
       if (!mounted) return;
-      Navigator.pop(context);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Error inesperado'),
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text('Error: ${e.toString()}'),
           behavior: SnackBarBehavior.floating,
         ),
       );
     }
   }
-
-  // Future<void> _navigateToDetails(News newsItem) async {
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return Center(
-  //         child: Container(
-  //           padding: const EdgeInsets.all(20),
-  //           decoration: BoxDecoration(
-  //             color: Theme.of(context).colorScheme.surface,
-  //             borderRadius: BorderRadius.circular(16),
-  //           ),
-  //           child: Column(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               CircularProgressIndicator(
-  //                 color: Theme.of(context).colorScheme.primary,
-  //               ),
-  //               const SizedBox(height: 16),
-  //               Text(
-  //                 'Cargando noticia...',
-  //                 style: TextStyle(
-  //                   color: Colors.grey[700],
-  //                   fontSize: 14,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-
-  //   try {
-  //     final Detail newDetail = await getDetailsOfNew(newsItem.url);
-  //     Navigator.pop(context);
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => DetailsNewsPage(
-  //           newDetails: newDetail,
-  //         ),
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     Navigator.pop(context);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: const Text('Error al cargar los detalles'),
-  //         action: SnackBarAction(
-  //           label: 'Reintentar',
-  //           onPressed: () => _navigateToDetails(newsItem),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  // }
 
   Future<void> _toggleFavorite(News newsItem) async {
     await _sharedPreference.saveFavorite(newsItem);
