@@ -8,9 +8,7 @@
 # Nery News
 
 [![Built with Flutter](https://img.shields.io/badge/Built_with-Flutter-blue.svg)](https://flutter.dev/)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
-![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)
-![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen)
+![Version](https://img.shields.io/badge/Version-1.1.0-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 **Nery News** is a mobile application developed in Flutter that provides local news from the Dominican Republic. It allows users to read news from multiple sources, save favorite articles, share news, and customize the user interface.
@@ -110,16 +108,14 @@ If you have any questions, suggestions, or need support, feel free to reach out 
 
 Nery News uses the following Flutter packages:
 
-- `change_app_package_name`: ^1.3.0  
-  Allows changing the application package name.
+- `cached_network_image`: ^3.4.0  
+  Efficiently loads and caches network images.
 - `dio`: ^5.4.2+1  
   HTTP client for Flutter, facilitates managing HTTP requests and responses.
 - `flutter_animate`: ^4.5.0  
   Tool for adding animations to your Flutter application.
-- `flutter_native_splash`: ^2.4.1  
-  Generates native splash screens for iOS and Android.
-- `icons_launcher`: ^2.1.7  
-  Creates custom app icons.
+- `flutter_markdown_plus`: ^1.0.7  
+  Markdown file rendering for terms and policies.
 - `share_plus`: ^9.0.0  
   Allows sharing content with other applications.
 - `shared_preferences`: ^2.3.1  

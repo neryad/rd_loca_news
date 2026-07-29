@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 DetailsResponse detailsResponseFromJson(String str) =>
-    DetailsResponse.fromJson(json.decode(str));
+    DetailsResponse.fromJson(json.decode(str) as Map<String, dynamic>);
 
 String detailsResponseToJson(DetailsResponse detail) =>
     json.encode(detail.toJson());
@@ -21,8 +21,8 @@ class DetailsResponse {
 
   factory DetailsResponse.fromJson(Map<String, dynamic> json) =>
       DetailsResponse(
-        ok: json["ok"],
-        detail: Detail.fromJson(json["data"]),
+        ok: json["ok"] as bool,
+        detail: Detail.fromJson(json["data"] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,18 +61,18 @@ class Detail {
   });
 
   factory Detail.fromJson(Map<String, dynamic> json) => Detail(
-        url: json["url"],
-        title: json["title"],
-        description: json["description"],
-        image: json["image"],
-        author: json["author"],
-        favicon: json["favicon"],
-        content: json["content"],
-        published: DateTime.parse(json["published"]),
-        type: json["type"],
-        source: json["source"],
-        links: List<String>.from(json["links"].map((x) => x)),
-        ttr: json["ttr"],
+        url: json["url"] as String,
+        title: json["title"] as String,
+        description: json["description"] as String,
+        image: json["image"] as String,
+        author: json["author"] as String,
+        favicon: json["favicon"] as String,
+        content: json["content"] as String,
+        published: DateTime.parse(json["published"] as String),
+        type: json["type"] as String,
+        source: json["source"] as String,
+        links: List<String>.from((json["links"] as List<dynamic>).map((x) => x as String)),
+        ttr: json["ttr"] as int,
       );
 
   Map<String, dynamic> toJson() => {

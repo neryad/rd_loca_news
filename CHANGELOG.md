@@ -2,6 +2,53 @@
 
 Todos los cambios notables en este proyecto se documentarán en este archivo.
 
+## [1.1.1] - 2026-07-29
+
+### 🛠️ SDK y Dependencias
+
+- **Android targetSdkVersion actualizado a 36**: Cumplimiento con Google Play para Android 16 (API level 36)
+
+---
+
+## [1.1.0+1782867387] - 2026-06-30
+
+### 🛠️ SDK y Dependencias
+
+- **Android SDK actualizado**: Kotlin 2.0.0, Java 17, AGP 8.6.0, Gradle 8.7
+- `flutter_markdown` (discontinuado) reemplazado por `flutter_markdown_plus`
+- `google_mobile_ads` removido (código no utilizado)
+- SDK constraint en `pubspec.yaml` actualizado a `>=3.10.0-0`
+
+### 🐛 Correcciones
+
+- Pull-to-refresh ahora fuerza recarga de datos (no devolvía caché)
+- Hero animations ahora funcionan correctamente entre listas y detalle
+- Diálogo de carga reemplazado por SnackBar loading para mejor UX
+- `defaultColor` ahora persiste correctamente al reiniciar la app
+- Errores silenciados de `_launchUrl` ahora muestran feedback al usuario
+
+### ⚡ Performance
+
+- `NetworkImage` reemplazado por `CachedNetworkImage` en toda la app (caché de imágenes)
+- `MainApp.stateSet()` anti-patrón reemplazado por `ValueNotifier<ThemeMode>`
+- `withOpacity()` migrado a `.withValues(alpha:)` (43 ocurrencias)
+
+### 📱 UI/UX
+
+- Skeletons de carga mejorados con indicadores más claros
+- Estados de error ahora muestran el mensaje real de la excepción
+- Migración de `RadioListTile` a `RadioGroup` (nueva API Flutter 3.32+)
+
+### 🔧 Calidad de Código
+
+- `analysis_options.yaml` con strict-casts, strict-inference, strict-raw-types
+- 5 imports sin uso eliminados
+- Variables `final` donde aplica
+- `catch` clauses tipadas con `on Exception`
+- `flutter analyze` — **0 issues**
+
+---
+
 ## [1.0.0+1760752330] - 2025-10-17
 
 ### 🎨 Refactorización completa de UI/UX

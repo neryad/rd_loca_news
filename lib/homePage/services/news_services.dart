@@ -87,7 +87,7 @@ class NewsService {
 
       // Hacer petición a la API
       log('🔄 Obteniendo noticias de: $newsPaper');
-      final response = await _dio.get('/$newsPaper');
+      final response = await _dio.get<dynamic>('/$newsPaper');
 
       // Validar respuesta
       if (response.data == null) {
@@ -107,7 +107,7 @@ class NewsService {
         );
       }
 
-      final List<dynamic>? jsonResponse = data['data'];
+      final List<dynamic>? jsonResponse = data['data'] as List<dynamic>?;
 
       if (jsonResponse == null) {
         throw NewsServiceException(
@@ -125,8 +125,8 @@ class NewsService {
       final List<News> news = [];
       for (var item in jsonResponse) {
         try {
-          news.add(News.fromJson(item));
-        } catch (e) {
+          news.add(News.fromJson(item as Map<String, dynamic>));
+        } on Exception catch (e) {
           log('⚠️ Error al parsear noticia individual: $e');
           // Continuar con las demás noticias
         }

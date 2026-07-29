@@ -8,7 +8,7 @@ void main(List<String> arguments) {
     exit(1);
   }
 
-  String levelChange = arguments[0];
+  final String levelChange = arguments[0];
   updateVersion(levelChange);
 }
 
@@ -20,8 +20,8 @@ void updateVersion(String levelChange) {
   }
 
   String content = pubspec.readAsStringSync();
-  RegExp versionRegex = RegExp(r'version:\s*(\d+)\.(\d+)\.(\d+)\+(\d+)');
-  Match? match = versionRegex.firstMatch(content);
+  final RegExp versionRegex = RegExp(r'version:\s*(\d+)\.(\d+)\.(\d+)\+(\d+)');
+  final Match? match = versionRegex.firstMatch(content);
 
   if (match == null) {
     print('Error: version not found in pubspec.yaml');
@@ -50,8 +50,8 @@ void updateVersion(String levelChange) {
       exit(1);
   }
 
-  String newVersionName = '$major.$minor.$patch';
-  String newVersion =
+  final String newVersionName = '$major.$minor.$patch';
+  final String newVersion =
       '$newVersionName+${DateTime.now().millisecondsSinceEpoch ~/ 1000}';
 
   // Actualiza la versión en pubspec.yaml

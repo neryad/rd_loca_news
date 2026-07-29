@@ -1,1 +1,19 @@
 include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    invalid_annotation_target: ignore
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    - prefer_const_constructors
+    - avoid_print
+    - unawaited_futures
+    - prefer_final_locals
+    - always_declare_return_types
+    - avoid_catches_without_on_clauses
+    - always_use_package_imports

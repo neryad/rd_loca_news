@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rd_loca_news/details/models/details_model.dart';
 import 'package:share_plus/share_plus.dart';
@@ -128,7 +128,7 @@ class _CustomAppBar extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 Colors.transparent,
-                Colors.black.withOpacity(0.7),
+                Colors.black.withValues(alpha: 0.7),
               ],
             ),
           ),
@@ -136,16 +136,19 @@ class _CustomAppBar extends StatelessWidget {
         background: Stack(
           fit: StackFit.expand,
           children: [
-            FadeInImage(
-              placeholder: const AssetImage('/assets/epic-loading.gif'),
-              image: NetworkImage(detail.image),
-              fit: BoxFit.cover,
-              imageErrorBuilder: (context, error, stackTrace) {
-                return Container(
+            Hero(
+              tag: 'news_img_${detail.url}',
+              child: CachedNetworkImage(
+                imageUrl: detail.image,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+                errorWidget: (context, url, error) => Container(
                   color: Colors.grey[300],
                   child: const Icon(Icons.image_not_supported, size: 64),
-                );
-              },
+                ),
+              ),
             ),
           ],
         ),
@@ -180,7 +183,7 @@ class _MetadataChips extends StatelessWidget {
       } else {
         return '${date.day}/${date.month}/${date.year}';
       }
-    } catch (e) {
+    } on Exception catch (_) {
       return dateStr;
     }
   }

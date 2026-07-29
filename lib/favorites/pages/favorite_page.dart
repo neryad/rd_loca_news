@@ -141,11 +141,9 @@
 // }
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:rd_loca_news/details/models/details_model.dart';
 import 'package:rd_loca_news/details/pages/details_page.dart';
 import 'package:rd_loca_news/details/services/details_service.dart';
 import 'package:rd_loca_news/homePage/models/news_model.dart';
@@ -162,6 +160,7 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   final SharedPreference _sharedPreference = SharedPreference();
   bool _isDeleting = false;
+  int _refreshKey = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +174,7 @@ class _FavoritePageState extends State<FavoritePage> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: colorScheme.primary.withOpacity(0.1),
+                color: colorScheme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
@@ -191,7 +190,7 @@ class _FavoritePageState extends State<FavoritePage> {
         elevation: 0,
       ),
       body: FutureBuilder<List<News>>(
-        future: _sharedPreference.getFavorites(),
+        future: _refreshKey == 0 ? _sharedPreference.getFavorites() : _sharedPreference.getFavorites(),
         builder: (BuildContext context, AsyncSnapshot<List<News>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -252,7 +251,9 @@ class _FavoritePageState extends State<FavoritePage> {
 
           return RefreshIndicator(
             onRefresh: () async {
-              setState(() {});
+              setState(() {
+                _refreshKey++;
+              });
             },
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
@@ -278,13 +279,13 @@ class _FavoritePageState extends State<FavoritePage> {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.bookmark_border,
               size: 80,
-              color: theme.colorScheme.primary.withOpacity(0.5),
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
             ),
           ),
           const SizedBox(height: 24),
@@ -313,10 +314,10 @@ class _FavoritePageState extends State<FavoritePage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: theme.colorScheme.primary.withOpacity(0.2),
+                color: theme.colorScheme.primary.withValues(alpha: 0.2),
               ),
             ),
             child: Row(
@@ -433,7 +434,7 @@ class _FavoritePageState extends State<FavoritePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
-            color: theme.dividerColor.withOpacity(0.1),
+            color: theme.dividerColor.withValues(alpha: 0.1),
           ),
         ),
         child: InkWell(
@@ -446,28 +447,27 @@ class _FavoritePageState extends State<FavoritePage> {
               children: [
                 // Imagen
                 Hero(
-                  tag: 'favorite_${newsItem.url}_$index',
+                  tag: 'news_img_${newsItem.url}',
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: FadeInImage(
+                    child: CachedNetworkImage(
                       width: 110,
                       height: 110,
                       fit: BoxFit.cover,
-                      placeholder:
-                          const AssetImage('./assets/epic-loading.gif'),
-                      image: NetworkImage(newsItem.img),
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          width: 110,
-                          height: 110,
-                          color: Colors.grey[300],
-                          child: Icon(
-                            Icons.broken_image,
-                            size: 32,
-                            color: Colors.grey[500],
-                          ),
-                        );
-                      },
+                      imageUrl: newsItem.img,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        width: 110,
+                        height: 110,
+                        color: Colors.grey[300],
+                        child: Icon(
+                          Icons.broken_image,
+                          size: 32,
+                          color: Colors.grey[500],
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -556,128 +556,67 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 
   Future<void> _navigateToDetails(News newsItem) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => Center(
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(16),
+    if (!mounted) return;
+
+    final messenger = ScaffoldMessenger.of(context);
+    final snackBar = SnackBar(
+      content: const Row(
+        children: [
+          SizedBox(
+            width: 18, height: 18,
+            child: CircularProgressIndicator(strokeWidth: 2),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.primary),
-              const SizedBox(height: 16),
-              Text('Cargando noticia...',
-                  style: TextStyle(color: Colors.grey[700], fontSize: 14)),
-            ],
-          ),
-        ),
+          SizedBox(width: 12),
+          Text('Cargando noticia...'),
+        ],
       ),
+      duration: const Duration(seconds: 10),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     );
+    messenger.showSnackBar(snackBar);
 
     try {
       final service = DetailsService();
       final detail = await service.getDetailsOfNew(newsItem.url);
 
-      if (!mounted) return;
-      Navigator.pop(context); // Cerrar loading
+      messenger.hideCurrentSnackBar();
 
-      Navigator.push(
+      if (!mounted) return;
+      await Navigator.push<void>(
         context,
-        MaterialPageRoute(builder: (_) => DetailsNewsPage(newDetails: detail)),
+        MaterialPageRoute<void>(
+          builder: (_) => DetailsNewsPage(newDetails: detail),
+        ),
       );
     } on DetailsServiceException catch (e) {
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.hideCurrentSnackBar();
+      if (!mounted) return;
+      messenger.showSnackBar(
         SnackBar(
           content: Text(e.message),
-          action: e.type == DetailsErrorType.timeout ||
-                  e.type == DetailsErrorType.noConnection
+          action: (e.type == DetailsErrorType.timeout ||
+                  e.type == DetailsErrorType.noConnection)
               ? SnackBarAction(
                   label: 'Reintentar',
-                  onPressed: () => _navigateToDetails(newsItem))
+                  onPressed: () => _navigateToDetails(newsItem),
+                )
               : null,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
+    } on Exception catch (e) {
+      messenger.hideCurrentSnackBar();
+      if (!mounted) return;
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text('Error: ${e.toString()}'),
           behavior: SnackBarBehavior.floating,
         ),
       );
-      log('❌ DetailsServiceException: ${e.message}\nOriginal: ${e.originalError}');
-    } catch (e, st) {
-      Navigator.pop(context);
-      log('❌ Error inesperado en _navigateToDetails: $e\n$st');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Error inesperado: $e'),
-            behavior: SnackBarBehavior.floating),
-      );
     }
   }
-
-  // Future<void> _navigateToDetails(News newsItem) async {
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return Center(
-  //         child: Container(
-  //           padding: const EdgeInsets.all(20),
-  //           decoration: BoxDecoration(
-  //             color: Theme.of(context).colorScheme.surface,
-  //             borderRadius: BorderRadius.circular(16),
-  //           ),
-  //           child: Column(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               CircularProgressIndicator(
-  //                 color: Theme.of(context).colorScheme.primary,
-  //               ),
-  //               const SizedBox(height: 16),
-  //               Text(
-  //                 'Cargando noticia...',
-  //                 style: TextStyle(
-  //                   color: Colors.grey[700],
-  //                   fontSize: 14,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-
-  //   try {
-  //     final Detail newDetail = await getDetailsOfNew(newsItem.url);
-  //     Navigator.pop(context);
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => DetailsNewsPage(
-  //           newDetails: newDetail,
-  //         ),
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     Navigator.pop(context);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: const Text('Error al cargar los detalles'),
-  //         action: SnackBarAction(
-  //           label: 'Reintentar',
-  //           onPressed: () => _navigateToDetails(newsItem),
-  //         ),
-  //         behavior: SnackBarBehavior.floating,
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(10),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  // }
 
   Future<void> _showRemoveDialog(News newsItem) async {
     final result = await showDialog<bool>(
@@ -748,7 +687,7 @@ class _FavoritePageState extends State<FavoritePage> {
         );
         setState(() {});
       }
-    } catch (e) {
+    } on Exception catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
