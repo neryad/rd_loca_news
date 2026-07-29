@@ -2,6 +2,14 @@
 
 Todos los cambios notables en este proyecto se documentarán en este archivo.
 
+## [1.1.1] - 2026-07-29
+
+### 🛠️ SDK y Dependencias
+
+- **Android targetSdkVersion actualizado a 36**: Cumplimiento con Google Play para Android 16 (API level 36)
+
+---
+
 ## [1.1.0+1782867387] - 2026-06-30
 
 ### 🛠️ SDK y Dependencias
